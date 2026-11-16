@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 300" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="pit" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8f1df"/>
+      <stop offset=".5" stop-color="#f3e8cc"/>
+      <stop offset="1" stop-color="#eee1c1"/>
+    </linearGradient>
+  </defs>
+  <path d="M74 1H98.5V299H74C34 299 1 233 1 150S34 1 74 1Z" fill="url(#pit)" stroke="#9eaf8d" stroke-width="1.2" stroke-linejoin="round"/>
+</svg>

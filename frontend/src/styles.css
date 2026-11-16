@@ -1,0 +1,5 @@
+﻿/*
+  CSS split into per-section files under src/styles/.
+  Main app imports them in src/main.jsx.
+  This file is intentionally kept as a thin compatibility shim.
+*/

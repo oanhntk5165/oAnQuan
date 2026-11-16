@@ -1,0 +1,84 @@
+/* =========================================================
+   9) SUB-PAGES / PROFILE, HISTORY, LEADERBOARD, GUIDE
+   - Trang hồ sơ người chơi, lịch sử trận, bảng xếp hạng, hướng dẫn.
+   - Nếu cần sửa style riêng cho từng tab, tìm theo comment này.
+   ========================================================= */
+.leaderboard-page { width: min(1000px,100%); margin: 0 auto; padding: 42px 0; }
+.leaderboard-page h1 { margin: 12px 0 6px; color: var(--forest); font: 900 clamp(30px,4vw,44px) "Nunito",sans-serif; }
+.leaderboard-page>p { margin: 0 0 24px; color: var(--muted); font-size: 13px; }
+.leaderboard-card { overflow: hidden; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-surface); box-shadow: 0 12px 30px rgba(73,64,33,.06); }
+.leaderboard-row { display: grid; grid-template-columns: 72px minmax(0, 1.5fr) 120px 150px; align-items: center; gap: 12px; min-height: 68px; padding: 0 18px; border-bottom: 1px solid rgba(25,83,43,.08); color: var(--forest); }
+.leaderboard-row:last-child { border-bottom: 0; }
+.leaderboard-head { min-height: 52px; background: #f7f1e3; color: #5d685b; font: 800 9px "Nunito",sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+.leaderboard-position { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 13px; background: #f4e3d2; font: 900 11px "Nunito",sans-serif; }
+.position-1 { background: #ffedb0; color: #8a5716; }
+.position-2 { background: #e8eddc; }
+.position-3 { background: #f4e3d2; }
+.leaderboard-player { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.leaderboard-avatar { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 12px; background: #e3ead2; color: var(--forest); font: 900 13px "Nunito",sans-serif; }
+.leaderboard-player strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.leaderboard-points { font: 900 16px "Nunito",sans-serif; }
+.leaderboard-tier { color: #7f8674; font: 700 10px "Nunito",sans-serif; }
+.is-self { background: rgba(255, 202, 38, .09); }
+.leaderboard-empty { padding: 26px 18px; text-align: center; color: #7e8573; font-size: 12px; }
+
+.history-page { width: min(1000px,100%); margin: 0 auto; padding: 42px 0; }
+.history-page h1 { margin: 12px 0 6px; color: var(--forest); font: 900 clamp(30px,4vw,44px) "Nunito",sans-serif; }
+.history-page>p { margin: 0 0 24px; color: var(--muted); font-size: 13px; }
+.history-list { overflow: hidden; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-surface); box-shadow: 0 12px 30px rgba(73,64,33,.06); }
+.history-match-card { min-height: 82px; display: grid; grid-template-columns: 42px 66px minmax(140px,1fr) 95px 78px 150px; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid rgba(25,83,43,.08); color: var(--forest); }
+.history-match-card:last-child { border-bottom: 0; }
+.history-order { color: #929985; font: 900 12px "Nunito",sans-serif; }
+.history-result { justify-self: start; min-width: 55px; padding: 6px 9px; border-radius: 18px; text-align: center; font-size: 10px; font-weight: 900; }
+.result-win { background: #e1edd9; color: #27643b; }
+.result-draw { background: #fff0c8; color: #93651b; }
+.result-loss { background: #f5dfd9; color: #a74331; }
+.history-opponent { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.history-avatar { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 14px; background: #f4e3d2; color: #8a4d2e; font: 900 16px "Nunito",sans-serif; }
+.history-opponent div,.history-score,.history-rating { min-width: 0; display: grid; gap: 4px; }
+.history-opponent small,.history-score small,.history-rating small { color: #9b9c88; font: 800 8px "Nunito",sans-serif; letter-spacing: .8px; }
+.history-opponent strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 12px "Nunito",sans-serif; }
+.history-score strong { font: 900 14px "Nunito",sans-serif; }
+.history-score i { margin: 0 5px; color: #a8aa9a; font-style: normal; }
+.history-rating strong { color: #7e8875; font: 900 14px "Nunito",sans-serif; }
+.history-rating.rating-plus strong { color: #278247; }
+.history-rating.rating-minus strong { color: #bd4b38; }
+.history-match-card time { color: #8c9181; font-size: 9px; text-align: right; }
+
+.profile-page { width: min(1000px,100%); margin: 0 auto; padding: 38px 0; }
+.profile-identity-card { display: flex; flex-direction: column; align-items: center; margin: 12px auto 28px; padding: 26px; text-align: center; color: var(--forest); }
+.profile-main-avatar { width: 92px; height: 92px; display: grid; place-items: center; border: 4px solid #fffaf0; border-radius: 30px; background: #e3ead2; box-shadow: 0 8px 22px rgba(25,83,43,.14); font: 900 38px "Nunito",sans-serif; }
+.profile-identity-card h1 { margin: 13px 0 3px; font: 900 28px "Nunito",sans-serif; }
+.profile-points { font: 900 16px "Nunito",sans-serif; }
+.profile-rank { margin-top: 9px; padding: 6px 13px; border-radius: 18px; background: #ffedb0; color: #8a5716; font-size: 11px; font-weight: 800; }
+.profile-stat-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.profile-stat-card { padding: 22px; border: 1px solid var(--card-border); border-radius: 17px; background: var(--card-surface); color: var(--forest); box-shadow: var(--card-shadow); }
+.profile-stat-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: #ffedb0; color: #9d5715; font-size: 22px; }
+.profile-stat-card h2 { margin: 14px 0 18px; font: 900 17px "Nunito",sans-serif; }
+.profile-stat-total { display: flex; align-items: baseline; gap: 9px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.profile-stat-total strong { font: 900 32px "Nunito",sans-serif; }
+.profile-stat-total span { color: #858775; font-size: 11px; }
+.profile-stat-results { display: grid; grid-template-columns: repeat(3,1fr); padding: 15px 0; }
+.profile-stat-results span { display: grid; gap: 5px; color: #858775; font-size: 10px; }
+.profile-stat-results b { color: var(--forest); font: 900 19px "Nunito",sans-serif; }
+.profile-win-rate { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 10px; background: #e8eddc; color: var(--forest); font-size: 11px; }
+.profile-win-rate strong { font: 900 16px "Nunito",sans-serif; }
+
+.guide-page { width: min(1000px,100%); margin: 0 auto; padding: 42px 0; }
+.guide-page>h1 { margin: 12px 0 7px; color: var(--forest); font: 900 clamp(30px,4vw,44px) "Nunito",sans-serif; }
+.guide-intro-card { display: flex; align-items: center; gap: 17px; margin-bottom: 17px; padding: 20px; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-surface-soft); color: var(--forest); }
+.guide-board-symbol { width: 55px; height: 55px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 17px; background: #fffaf0; color: #bb8420; font-size: 30px; }
+.guide-intro-card strong,.guide-step-card h2,.guide-note strong { font: 900 15px "Nunito",sans-serif; }
+.guide-intro-card p,.guide-step-card p,.guide-note p { margin: 7px 0 0; color: #727b68; font-size: 11px; line-height: 1.75; }
+.guide-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.guide-step-card { position: relative; min-height: 172px; padding: 21px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface); color: var(--forest); }
+.guide-step-number { color: #c58d1d; font: 900 12px "Nunito",sans-serif; letter-spacing: 1px; }
+.guide-step-card h2 { margin: 11px 0 0; }
+.guide-note { margin-top: 15px; padding: 16px 19px; border-left: 4px solid var(--sunshine); border-radius: 10px; background: var(--card-surface-warm); color: #705322; }
+.guide-note p { color: #806f4e; }
+.guide-online-note { border-left-color: var(--forest-light); background: var(--card-surface-soft); color: var(--forest); }
+
+.subpage-header { display: flex; align-items: center; gap: 13px; margin-bottom: 24px; }
+.subpage-header h1 { margin: 0; color: var(--forest); font: 900 clamp(28px,4vw,40px) "Nunito",sans-serif; letter-spacing: -1px; }
+.subpage-back { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border: 2px solid rgba(25,83,43,.56); border-radius: 14px; background: #fff3d4; color: var(--forest); box-shadow: inset 0 0 0 2px rgba(255,202,38,.36), 0 4px 12px rgba(71,68,38,.08); }
+.subpage-back:hover { background: #e3ead2; }

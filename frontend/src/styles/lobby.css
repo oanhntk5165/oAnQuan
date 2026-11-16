@@ -1,0 +1,88 @@
+/* =========================================================
+   7) LOBBY / CHỌN CHẾ ĐỘ CHƠI
+   - quick / local / ranked
+   - Create room / Join room / Matchmaking UI
+   ========================================================= */
+.redesigned-lobby { max-width: 1000px; margin: 0 auto; padding: clamp(34px, 7vh, 76px) 0; }
+.lobby-title { margin: 12px 0 28px; color: var(--forest); font: 900 clamp(28px, 4vw, 42px) "Nunito", sans-serif; }
+.home-dashboard { display: grid; grid-template-columns: minmax(220px, .75fr) minmax(0, 2fr); gap: 14px; align-items: stretch; margin-bottom: 24px; }
+.home-player-card, .home-nav-card { min-width: 0; display: flex; align-items: center; padding: 14px; border: 2px solid rgba(25,83,43,.56); border-radius: 24px; background: var(--card-surface-warm); color: var(--forest); box-shadow: inset 0 0 0 2px rgba(255,202,38,.48), 0 5px 14px rgba(71,68,38,.09); }
+.home-player-card { gap: 12px; }
+.home-player-avatar { width: 43px; height: 43px; flex: 0 0 auto; display: grid; place-items: center; border: 2px solid #ad8e58; border-radius: 50%; background: #e3ead2; font: 900 18px "Nunito", sans-serif; }
+.home-player-details { min-width: 0; display: grid; gap: 3px; }
+.home-player-details small { color: #8d7951; font: 800 8px "Nunito", sans-serif; }
+.home-player-details strong { max-width: 120px; overflow: hidden; font: 900 12px "Nunito", sans-serif; text-overflow: ellipsis; }
+.home-player-details > span { color: #8d7951; font: 800 8px "Nunito", sans-serif; white-space: nowrap; }
+.home-online-count { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; color: #747763; font-size: 9px; white-space: nowrap; }
+.home-online-count i { width: 7px; height: 7px; border-radius: 50%; background: var(--kiwi); box-shadow: 0 0 0 3px rgba(154,188,4,.16); }
+.home-nav-card { justify-content: space-between; gap: 4px; padding: 8px; }
+.home-nav-link { min-width: 57px; min-height: 54px; flex: 1 1 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 4px 7px; border: 0; border-radius: 11px; background: transparent; color: #77745f; font: 800 9px "Nunito", sans-serif; white-space: nowrap; }
+.home-nav-link:hover, .home-nav-link.is-active { background: #e3ead2; color: var(--forest); }
+.home-nav-link.is-active { box-shadow: inset 0 -2px var(--carrot); }
+.home-nav-link.home-nav-exit { color: #9e4a35; }
+.home-nav-link.home-nav-exit:hover { background: #f4dddd; color: var(--red-dark); }
+.mode-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.mode-choice-card { position: relative; min-height: 190px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 22px; text-align: left; border: 1px solid var(--card-border); border-radius: 18px; background: var(--card-surface); color: var(--forest); box-shadow: var(--card-shadow); }
+.mode-choice-card.selected { border: 2px solid var(--carrot); box-shadow: 0 0 0 4px rgba(248,96,21,.1), 0 14px 32px rgba(73,64,33,.08); }
+.mode-choice-card > strong { font: 900 20px "Nunito", sans-serif; }
+.mode-choice-card > small { color: #858775; font-size: 12px; }
+.mode-choice-card .lobby-mode-icon { width: 48px; height: 48px; }
+
+.lobby-start { display: block; min-width: 220px; height: 50px; margin: 24px auto 0; border: 0; border-radius: 12px; font: 900 15px "Nunito", sans-serif; box-shadow: 0 8px 20px rgba(25,83,43,.18); }
+.ranked-dashboard { display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr); gap: 18px; margin-top: 24px; }
+.ranked-overlay-card { position: relative; width: min(780px, 100%); padding: 28px; border: 1px solid var(--card-border); border-radius: 20px; background: var(--card-surface); box-shadow: 0 22px 70px rgba(21,34,19,.38); color: var(--ink); }
+.ranked-overlay-title { margin: 8px 0 0; color: var(--forest); font: 900 24px "Nunito",sans-serif; }
+.ranked-overlay-card .ranked-dashboard { margin-top: 17px; }
+.rank-profile-card,.rank-play-card { padding: 25px; border: 1px solid var(--card-border); border-radius: 18px; background: var(--card-surface); color: var(--forest); }
+.rank-profile-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.rank-avatar { width: 72px; height: 72px; display: grid; place-items: center; border-radius: 24px; background: #e3ead2; font: 900 30px "Nunito",sans-serif; }
+.rank-profile-card h2,.rank-play-card h2 { margin: 12px 0 5px; font: 900 22px "Nunito",sans-serif; }
+.rank-badge { margin: 10px 0; padding: 6px 12px; border-radius: 18px; background: #ffedb0; font-size: 11px; font-weight: 800; }
+.rank-stats { width: 100%; display: grid; grid-template-columns: repeat(3,1fr); margin: 16px 0 12px; padding: 14px 0; border-block: 1px solid var(--line); }
+.rank-stats span { display: grid; gap: 4px; color: #858775; font-size: 10px; }
+.rank-stats b { color: var(--forest); font: 900 18px "Nunito",sans-serif; }
+.rank-play-card { display: flex; flex-direction: column; align-items: flex-start; }
+.rank-play-card p,.rank-play-card>small { color: #858775; font-size: 11px; line-height: 1.6; }
+.rank-play-card>.button { width: 100%; min-height: 46px; border: 0; border-radius: 10px; font-weight: 900; }
+.rank-room-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
+.rank-room-actions button { min-height: 40px; border: 1px solid var(--line); border-radius: 9px; background: #f7f1e3; color: var(--forest); font-size: 11px; font-weight: 800; }
+.rank-rules { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
+.setup-card label { display: grid; gap: 7px; margin-top: 14px; color: var(--forest); font-size: 11px; font-weight: 800; }
+.setup-card input,.setup-card select { width: 100%; min-height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); font: 600 13px "Nunito",sans-serif; }
+.local-setup-card { width: min(640px,100%); padding: 27px; }
+.local-setup-card > h2 { margin: 0 0 20px; color: var(--forest); font: 900 24px "Nunito",sans-serif; text-align: center; }
+.local-setup-player-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.local-setup-player-card { min-width: 0; display: grid; align-content: start; gap: 13px; margin: 0 !important; padding: 18px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface-warm); color: var(--forest); }
+.local-player-two { grid-column: 1; }
+.local-player-one { grid-column: 2; }
+.local-setup-player-card strong { min-height: 34px; display: flex; align-items: center; font: 900 13px "Nunito",sans-serif; }
+.local-setup-player-card input { margin: 0; }
+.local-first-turn { margin-top: 14px; padding: 15px 18px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface-soft); }
+.local-first-turn h3 { margin: 0 0 11px; color: var(--forest); font: 900 13px "Nunito",sans-serif; text-align: center; }
+.local-first-turn-options { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.local-first-turn-options button { min-height: 40px; border: 1px solid rgba(25,83,43,.18); border-radius: 10px; background: #fffaf0; color: var(--forest); font: 800 11px "Nunito",sans-serif; }
+.local-first-turn-options button.is-selected { border-color: var(--carrot); background: #ffedb0; box-shadow: inset 0 0 0 1px var(--carrot); }
+.local-start-game { display: flex; width: min(220px,100%); margin: 17px auto 0; }
+.room-code-display { display: block; padding: 12px; border-radius: 9px; background: #f7f1e3; color: var(--forest); font: 900 24px "Nunito",sans-serif; letter-spacing: 5px; text-align: center; }
+.room-player-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+.room-player-slots span { padding: 12px 8px; border: 1px solid var(--line); border-radius: 9px; text-align: center; font-size: 10px; }
+
+.mode-panel, .waiting-rooms-panel { min-width: 0; padding: 20px; border: 2px solid rgba(25,83,43,.4); border-radius: 17px; background: var(--card-surface); box-shadow: inset 0 0 0 3px rgba(255,202,38,.22), var(--card-shadow); }
+.lobby-section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+.lobby-section-heading .mode-tag { margin-bottom: 5px; font-size: 8px; }
+.bot-start-options { display: grid; gap: 9px; margin: 8px 0 12px; padding: 12px; border: 1px solid rgba(25,83,43,.13); border-radius: 12px; background: #fff3d4; color: var(--forest); font: 800 10px "Nunito", sans-serif; }
+.bot-start-options > div { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.bot-start-options button { min-height: 34px; border: 1px solid rgba(25,83,43,.18); border-radius: 8px; background: #fffaf0; color: var(--forest); font: 800 10px "Nunito", sans-serif; }
+.bot-start-options button:hover { border-color: var(--carrot); background: #ffedb0; }
+.room-code-join { display: flex; gap: 8px; margin-bottom: 11px; }
+.room-tools { display: flex; gap: 9px; margin-bottom: 12px; }
+.waiting-room-table-wrap { min-height: 290px; overflow: auto; }
+.waiting-room-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 10px; }
+.waiting-room-table th { height: 40px; padding: 0 10px; border-bottom: 1px solid rgba(25,83,43,.2); color: #77745f; font: 800 9px "Nunito", sans-serif; white-space: nowrap; }
+.waiting-room-table td { height: 56px; padding: 7px 10px; border-bottom: 1px solid rgba(25,83,43,.1); color: #6f725f; white-space: nowrap; }
+.waiting-room-table td:first-child { min-width: 130px; }
+.waiting-room-table td:first-child strong, .waiting-room-table td:first-child small { display: block; }
+.waiting-room-table td:first-child strong { color: var(--forest); font: 800 10px "Nunito", sans-serif; }
+.waiting-room-table td:first-child small { margin-top: 3px; color: #99917b; font-size: 8px; }
+.waiting-room-avatar { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 auto; border-radius: 12px; background: #e3ead2; color: var(--forest); font: 900 14px "Nunito", sans-serif; }
+.room-waiting-icon { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 auto; border-radius: 11px; background: #ffedb0; color: #9d5715; }
