@@ -514,7 +514,7 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
       {/* =========================
           7) Chat trong trận
           ========================= */}
-      {!usesTopbarLayout && board.mode !== "BOT" && board.mode !== "LOCAL" && (
+      {isOnlineGame && (
         <aside className="match-chat" aria-label="Chat trong trận">
           <div className="chat-title"><strong>Chat trong trận</strong><span>✳</span></div>
           <div className="chat-messages">{messages.length === 0
