@@ -1,0 +1,9 @@
+﻿.idea/
+.vscode/
+**/target/
+**/node_modules/
+**/dist/
+**/.env.local
+**/.env
+backend/oanquan_backup.sql
+backend/oanquan_backup.sql

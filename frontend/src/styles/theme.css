@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap");
+
+/* =========================================================
+   1) BIẾN TOÀN CỤC / TOKENS
+   - Chứa màu sắc, font, biến dùng chung cho toàn app.
+   - Khi muốn đổi theme, chỉnh ở đây thay vì sửa từng selector.
+   ========================================================= */
+:root {
+  font-family: "DM Sans", sans-serif;
+  color: #19532b;
+  background: #f3e8cc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --forest: #19532b;
+  --forest-light: #4d8055;
+  --cream: #f3e8cc;
+  --cream-deep: #ead9b5;
+  --sunshine: #ffca26;
+  --carrot: #f86015;
+  --tomato: #d42518;
+  --kiwi: #9abc04;
+  --teal: #005f73;
+  --red-dark: #8e0e0e;
+  --ink: #263d2e;
+  --muted: #788172;
+  --line: rgba(25, 83, 43, .12);
+  --card-surface: #fffaf0;
+  --card-surface-warm: #fff3d4;
+  --card-surface-soft: #e8eddc;
+  --card-highlight: #ffedb0;
+  --card-border: rgba(25, 83, 43, .14);
+  --card-shadow: 0 10px 28px rgba(73, 64, 33, .055);
+  oanquan-pit-size: clamp(64px, 6vw, 104px);
+  oanquan-store-width: clamp(52px, 3.5vw, 76px);
+  oanquan-pit-gap: clamp(5px, 1vw, 12px);
+  font-optical-sizing: auto;
+}
+
+/* =========================================================
+   2) BASE LAYOUT / RESET
+   - Reset browser default, thiết lập body, button, input.
+   - Đây là phần nền cho mọi component khác.
+   ========================================================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; min-width: 360px; min-height: 100vh; height: 100%; background: var(--cream); overflow: hidden; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid rgba(0, 95, 115, .45); outline-offset: 3px; }
+.app-shell { min-height: 100vh; height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.app-shell::before, .app-shell::after { content: ""; pointer-events: none; position: fixed; border-radius: 50%; z-index: 0; }
+.app-shell::before { width: 420px; height: 420px; background: rgba(255, 202, 38, .11); top: 120px; left: -260px; }
+.app-shell::after { width: 280px; height: 280px; background: rgba(154, 188, 4, .09); right: -180px; bottom: 60px; }
+
+/* =========================================================
+   3) TOP BAR / HEADER
+   - Thanh điều hướng trên cùng: logo, online count, avatar, tab chính.
+   - Dùng cho cả màn hình người chơi đã đăng nhập và chưa đăng nhập.
+   ========================================================= */
+.topbar { min-height: 92px; padding: 12px clamp(20px, 4vw, 64px); display: flex; align-items: center; justify-content: space-between; gap: 24px; position: relative; z-index: 1; background: rgba(243,232,204,.76); }
+.brand { display: inline-flex; gap: 11px; align-items: center; flex: 0 0 auto; padding: 0; border: 0; background: transparent; color: var(--forest); text-decoration: none; }
+.brand-mark { width: 39px; height: 39px; border-radius: 13px; display: grid; place-items: center; background: var(--forest); color: var(--sunshine); transform: rotate(-4deg); }
+.brand-name { font: 900 21px "Nunito", sans-serif; letter-spacing: -.8px; }
+.brand-dot, .heading-period { color: var(--carrot); }
+.topbar-right { display: flex; gap: 12px; align-items: center; min-width: 0; }
+.topbar-authenticated { min-height: 105px; }
+.topbar-authenticated .brand-mark { width: 49px; height: 49px; border: 2px solid rgba(255,202,38,.68); border-radius: 16px; box-shadow: 0 0 0 3px rgba(25,83,43,.12); }
+.topbar-authenticated .brand-name { font-size: 25px; }
+.player-nav { display: flex; align-items: center; gap: 14px; padding: 8px 12px; border: 2px solid rgba(25,83,43,.56); border-radius: 24px; background: var(--card-surface-warm); box-shadow: inset 0 0 0 2px rgba(255,202,38,.48), 0 5px 14px rgba(71,68,38,.09); }
+.player-nav-identity { display: flex; align-items: center; gap: 9px; min-width: 160px; padding-right: 12px; border-right: 1px solid rgba(25,83,43,.16); }
+.player-nav-avatar { width: 43px; height: 43px; display: grid; place-items: center; border: 2px solid #ad8e58; border-radius: 50%; background: #e3ead2; color: var(--forest); font: 900 18px "Nunito", sans-serif; }
+.player-nav-user-info { min-width: 0; display: grid; gap: 4px; }
+.player-nav-user-info strong { max-width: 120px; overflow: hidden; color: var(--forest); font: 900 12px "Nunito", sans-serif; text-overflow: ellipsis; }
+.player-nav-user-info small { color: #8d7951; font: 800 8px "Nunito", sans-serif; white-space: nowrap; }
+.player-nav-links { display: flex; align-items: stretch; gap: 3px; }
+.player-nav-link { min-width: 57px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 4px 7px; border: 0; border-radius: 11px; background: transparent; color: #77745f; font: 800 9px "Nunito", sans-serif; white-space: nowrap; }
+.player-nav-link:hover, .player-nav-link.is-active { background: #e3ead2; color: var(--forest); }
+.player-nav-link.is-active { box-shadow: inset 0 -2px var(--carrot); }
+.player-nav-exit { color: #9e4a35; }
+.player-nav-exit:hover { color: var(--red-dark); background: #f4dddd; }
+.connection-indicator { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: rgba(210,168,75,.2); }
+.connection-indicator i, .live-dot { height: 9px; width: 9px; border-radius: 50%; background: #d2a84b; box-shadow: 0 0 0 3px rgba(210,168,75,.2); }
+.connection-indicator.is-online { background: rgba(154,188,4,.2); }
+.connection-indicator.is-online i { background: var(--kiwi); box-shadow: 0 0 0 3px rgba(154,188,4,.22); }
+.connection-indicator.has-issue { background: rgba(212,37,24,.12); }
+.connection-indicator.has-issue i { background: var(--tomato); box-shadow: 0 0 0 3px rgba(212,37,24,.17); }
+.online-count { min-width: 40px; height: 31px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 9px; border: 1px solid rgba(25,83,43,.12); border-radius: 20px; background: #fff3d4; color: var(--forest); }
+.online-count strong { font: 900 10px "Nunito", sans-serif; }
+.avatar-button { background: transparent; border: 0; color: var(--forest); display: flex; gap: 10px; align-items: center; }
+.avatar-button span { border-radius: 50%; display: grid; place-items: center; width: 33px; height: 33px; background: var(--sunshine); font-weight: 800; }
+
+/* =========================================================
+   4) AUTH / WELCOME SCREEN
+   - Giao diện màn hình chào, đăng nhập, đăng ký.
+   - Chia thành 2 cột: copy quảng bá và form xác thực.
+   ========================================================= */
+.page-content { width: min(1120px, calc(100% - 48px)); margin: 0 auto; flex: 1; display: flex; align-items: center; position: relative; z-index: 1; }
+.signed-out { min-height: 0; height: calc(100vh - 92px); display: flex; align-items: center; justify-content: center; }
+.welcome-layout { width: 100%; display: grid; grid-template-columns: 1fr 410px; gap: clamp(42px, 8vw, 112px); align-items: center; padding: 48px 0 60px; }
+.auth-only { display: flex; justify-content: center; align-items: center; padding: 0; height: 100%; }
+.eyebrow, .tiny-label, .mode-tag { display: inline-flex; gap: 10px; align-items: center; font: 800 10px "Nunito", sans-serif; letter-spacing: 1.65px; color: var(--forest-light); }
+.eyebrow-line { display: inline-block; height: 2px; width: 25px; background: var(--carrot); }
+h1, h2, p { margin-top: 0; }
+.auth-card { background: var(--card-surface); border: 1px solid var(--card-border); border-radius: 25px; box-shadow: 0 20px 60px rgba(73,64,33,.1); padding: 35px 36px 26px; }
+.auth-card-full { width: min(420px, 100%); }
+.auth-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.sun-icon { font-size: 25px; line-height: 1; color: var(--carrot); }
+.tiny-label { letter-spacing: 1.2px; color: #96917d; font-size: 9px; }
+.auth-card h2 { font: 900 25px "Nunito", sans-serif; letter-spacing: -.7px; margin: 0 0 5px; }
+.auth-subtitle { font-size: 12px; color: var(--muted); margin: 0 0 24px; }
+.connection-help { display: grid; gap: 5px; padding: 11px 12px; margin: -10px 0 17px; border: 1px solid rgba(212,37,24,.2); border-radius: 10px; background: rgba(212,37,24,.055); color: #806b5e; font-size: 10px; line-height: 1.5; }
+.connection-help strong { color: var(--red-dark); font: 800 11px "Nunito", sans-serif; }
+.connection-help code { color: var(--teal); font-size: 10px; overflow-wrap: anywhere; }
+.auth-form { display: grid; gap: 16px; }
+.auth-form label { display: grid; gap: 8px; color: #4d604c; font-size: 11px; font-weight: 700; }
+.auth-form input { width: 100%; border: 1px solid rgba(25,83,43,.14); background: #fffdf8; color: var(--ink); border-radius: 10px; height: 44px; padding: 0 13px; font-size: 12px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.auth-form input::placeholder { color: #aaa894; }
+.auth-form input:focus { border-color: var(--forest-light); box-shadow: 0 0 0 3px rgba(77,128,85,.12); }
+.button { border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 9px; transition: transform .18s, filter .18s, box-shadow .18s; }
+.button:hover:not(:disabled), .mode-card:hover { transform: translateY(-2px); }
+.button:disabled { cursor: not-allowed; filter: grayscale(.25); opacity: .56; }
+.button-primary { background: var(--forest); color: var(--cream); border-radius: 10px; height: 47px; font-weight: 800; font-size: 12px; }
+.button-primary:hover:not(:disabled) { box-shadow: 0 8px 18px rgba(25,83,43,.19); }
+.auth-submit { width: 100%; margin-top: 3px; justify-content: space-between; padding: 0 15px; }
+.auth-switch { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 16px; color: #777d6b; font-size: 11px; text-align: center; }
+.auth-switch button { background: none; border: 0; padding: 0 0 0 5px; color: var(--carrot); font-size: 11px; font-weight: 800; }
+.auth-foot { margin-top: 21px; text-align: center; color: #9a957f; font-size: 10px; }
+.auth-foot span { color: var(--kiwi); margin-right: 4px; }
+
+/* =========================================================
+   5) TOAST / THÔNG BÁO NỔI
+   - Hiển thị message ngắn như "đã đăng nhập", "đối thủ rời phòng".
+   ========================================================= */
+.toast { z-index: 5; position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--forest); color: #fff8e9; border-radius: 12px; padding: 13px 15px; box-shadow: 0 12px 35px rgba(25,83,43,.25); font-size: 12px; display: flex; gap: 10px; align-items: center; max-width: min(500px, calc(100vw - 32px)); animation: toast-in .22s ease-out; }
+.toast > span { color: var(--sunshine); }
+.toast button { border: 0; color: #d8e1cf; background: transparent; display: flex; padding: 0 0 0 8px; }
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.authenticated-layout { width: min(1440px, calc(100% - 48px)); margin: 0 auto; flex: 1; min-height: calc(100vh - 167px); position: relative; z-index: 1; }
+.signed-in { align-items: flex-start; width: 100%; min-width: 0; margin: 0; min-height: calc(100vh - 167px); display: block; }
+.app-shell-fixed { width: 100%; height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
+.app-shell-game { width: 100%; height: 100vh; height: 100dvh; min-height: 0; overflow: hidden; }
+.app-shell-game .authenticated-layout { width: 100%; min-height: 0; margin: 0; }
+.app-shell-game .signed-in { width: 100%; height: 100%; min-height: 0; margin: 0; display: block; overflow: hidden; }
+.app-shell-fixed .topbar { flex: 0 0 auto; }
+.app-shell-fixed .authenticated-layout { min-height: 0; overflow: hidden; }
+.app-shell-fixed .signed-in { min-height: 0; height: 100%; overflow: hidden; }
+.app-shell-fixed .lobby { height: 100%; min-height: 0; display: flex; flex-direction: column; padding: 12px 0 8px; overflow: hidden; }
+.app-shell-fixed .lobby-columns { flex: 1; min-height: 0; }
+.app-shell-fixed .mode-panel, .app-shell-fixed .waiting-rooms-panel { min-height: 0; }
+.app-shell-fixed .waiting-rooms-panel { display: flex; flex-direction: column; }
+.app-shell-fixed .waiting-room-table-wrap { flex: 1; min-height: 0; scrollbar-width: none; }
+.app-shell-fixed .waiting-room-table-wrap::-webkit-scrollbar { display: none; }
+.page-placeholder { width: 100%; padding: 64px 8px; }
+.page-placeholder h1 { margin: 16px 0 8px; color: var(--forest); font: 900 clamp(32px, 4vw, 46px) "Nunito", sans-serif; letter-spacing: -1.5px; }
+.page-placeholder p { color: var(--muted); font-size: 13px; }
+
+.local-turn-clock { display: inline-flex; align-items: center; justify-content: center; min-width: 35px; margin-top: 2px; padding: 3px 8px; border-radius: 12px; background: #e8eddc; color: var(--forest); font: 900 12px "Nunito",sans-serif; }
+.local-turn-clock.clock-warning { background: #f7dfd4; color: #a74331; animation: clock-pulse .8s infinite alternate; }
+@keyframes clock-pulse { to { transform: scale(1.08); } }
