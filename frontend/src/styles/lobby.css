@@ -44,8 +44,15 @@
 .rank-play-card { display: flex; flex-direction: column; align-items: flex-start; }
 .rank-play-card p,.rank-play-card>small { color: #858775; font-size: 11px; line-height: 1.6; }
 .rank-play-card>.button { width: 100%; min-height: 46px; border: 0; border-radius: 10px; font-weight: 900; }
+.rank-play-card>.rank-find-opponent { background: linear-gradient(135deg, #276b3c, #45934c); color: #fffaf0; box-shadow: 0 5px 13px rgba(39,107,60,.2); }
+.rank-play-card>.rank-find-opponent:hover:not(:disabled) { background: linear-gradient(135deg, #205d33, #378442); box-shadow: 0 7px 17px rgba(39,107,60,.28); }
 .rank-room-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
 .rank-room-actions button { min-height: 40px; border: 1px solid var(--line); border-radius: 9px; background: #f7f1e3; color: var(--forest); font-size: 11px; font-weight: 800; }
+.rank-room-actions .rank-create-room { border-color: #e8b251; background: #fff0c8; color: #815516; }
+.rank-room-actions .rank-create-room:hover { border-color: #d9992e; background: #ffe4a0; }
+.rank-room-actions .rank-join-room { border-color: #83b8c5; background: #e3f2f5; color: #286675; }
+.rank-room-actions .rank-join-room:hover { border-color: #5b9eae; background: #cfe9ee; }
+.rank-play-card>.rank-find-opponent:focus-visible, .rank-room-actions button:focus-visible { outline: 3px solid rgba(248,96,21,.55); outline-offset: 3px; }
 .rank-rules { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line); }
 .setup-card label { display: grid; gap: 7px; margin-top: 14px; color: var(--forest); font-size: 11px; font-weight: 800; }
 .setup-card input,.setup-card select { width: 100%; min-height: 42px; padding: 0 11px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); font: 600 13px "Nunito",sans-serif; }

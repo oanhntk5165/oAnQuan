@@ -123,9 +123,9 @@ export default function Lobby({
         <span className="rank-badge">{auth.tier || "Tân thủ"}{auth.level ? ` · Cấp ${auth.level}` : ""}</span>
       </section>
       <section className="rank-play-card"><h2>Đấu xếp hạng</h2>
-        <button className="button button-green" onClick={() => void onAction(queueing ? "cancel_matchmaking" : "find_match")}>{queueing ? "Đang tìm đối thủ…" : "Tìm đối thủ"}</button>
+        <button className="button button-green rank-find-opponent" onClick={() => void onAction(queueing ? "cancel_matchmaking" : "find_match")}>{queueing ? "Đang tìm đối thủ…" : "Tìm đối thủ"}</button>
         {queueing && <small className="queue-note">Đang tìm trong 30 giây. Hết thời gian sẽ quay lại sảnh đấu hạng.</small>}
-        <div className="rank-room-actions"><button onClick={createRoom}>Tạo phòng</button><button onClick={() => setPanel("join")}>Nhập mã phòng</button></div>
+        <div className="rank-room-actions"><button className="rank-create-room" onClick={createRoom}>Tạo phòng</button><button className="rank-join-room" onClick={() => setPanel("join")}>Nhập mã phòng</button></div>
         <small className="rank-rules">Luật đấu: 20 giây mỗi lượt · hết giờ 2 lần là thua · mất kết nối 45 giây là thua.</small>
       </section>
       </div>

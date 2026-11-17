@@ -1106,7 +1106,6 @@ export default function GameScreen({
             >
               <Icon name="arrow-left" size={19} />
             </button>
-            <span className="eyebrow">KẾT THÚC TRẬN ĐẤU</span>
             <h2>
               {board.result === "DRAW"
                 ? "Ván đấu hòa!"
@@ -1114,13 +1113,17 @@ export default function GameScreen({
                   ? "Bạn chiến thắng!"
                   : "Bạn đã thua"}
             </h2>
-            <p className="local-final-score">
-              {board.playerNames?.[playerSlot]}{" "}
-              <strong>
-                {board.scores?.[playerSlot]} – {board.scores?.[opponentSlot]}
-              </strong>{" "}
-              {board.playerNames?.[opponentSlot]}
-            </p>
+            <div className="bot-result-score">
+              <div>
+                <small>{board.playerNames?.[playerSlot] || "Bạn"}</small>
+                <strong>{board.scores?.[playerSlot] ?? 0}</strong>
+              </div>
+              <span aria-hidden="true">–</span>
+              <div>
+                <small>{board.playerNames?.[opponentSlot] || "Đối thủ"}</small>
+                <strong>{board.scores?.[opponentSlot] ?? 0}</strong>
+              </div>
+            </div>
             {board.endReason === "PASS_LIMIT" && (
               <p>Bạn đã bỏ lượt hai lần nên thua.</p>
             )}
