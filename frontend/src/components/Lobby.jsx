@@ -86,12 +86,12 @@ export default function Lobby({
 
         <label className="local-setup-player-card local-player-two">
           <strong>Người chơi 1 — hàng trên</strong>
-          <input aria-label="Tên người chơi 1" value={secondName} onChange={(e) => setFirstName(e.target.value)}
+          <input aria-label="Tên người chơi 1" value={firstName} onChange={(e) => setFirstName(e.target.value)}
             maxLength={24} placeholder="Nhập tên người chơi 1" />
         </label>
         <label className="local-setup-player-card local-player-one">
           <strong>Người chơi 2 — hàng dưới</strong>
-          <input aria-label="Tên người chơi 2" value={firstName} onChange={(e) => setSecondName(e.target.value)}
+          <input aria-label="Tên người chơi 2" value={secondName} onChange={(e) => setSecondName(e.target.value)}
                  maxLength={24} placeholder="Nhập tên người chơi 2" />
         </label>
       </div>
