@@ -85,8 +85,8 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
   const bottomSlot = board.mode === "LOCAL" ? 1 : playerSlot;
   const topPits = topSlot === 0 ? [5, 4, 3, 2, 1] : [7, 8, 9, 10, 11];
   const bottomPits = bottomSlot === 0 ? [5, 4, 3, 2, 1] : [7, 8, 9, 10, 11];
-  const playerStore = board.mode === "LOCAL" ? 0 : playerSlot === 0 ? 0 : 6;
-  const opponentStore = board.mode === "LOCAL" ? 6 : opponentSlot === 0 ? 0 : 6;
+  const rightQuanPit = 0;
+  const leftQuanPit = 6;
   const visibleTurn = isAnimating && animationTurn !== null ? animationTurn : board.turn;
   const gameStatus = board.gameOver ? "Ván đấu đã kết thúc"
     : gamePaused ? "Ván đấu đang tạm dừng"
@@ -470,7 +470,7 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
       <section className={`match-main ${usesTopbarLayout ? "bot-match-main" : ""}`}>
         <div className="board-wrap">
           <div className="board-frame">
-            <StorePit board={visualBoard} index={playerStore} />
+            <StorePit board={visualBoard} index={rightQuanPit} />
             <div className="pit-row pit-row-top">{topPits.map((pit) => {
               const isSelected = selectedPit === pit;
               const isLegal = legalPits.includes(pit) && board.turn === playerSlot;
@@ -503,7 +503,7 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
                 />
               );
             })}</div>
-            <StorePit board={visualBoard} index={opponentStore} />
+            <StorePit board={visualBoard} index={leftQuanPit} />
           </div>
         </div>
       </section>
