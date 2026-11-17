@@ -16,7 +16,7 @@ class WebSocketConfig implements WebSocketConfigurer {
     private final String[] allowedOrigins;
 
     WebSocketConfig(SpringWebSocketHandler handler,
-                    @Value("${oanquan.allowed-origins:*}") String allowedOrigins) {
+            @Value("${oanquan.allowed-origins:*}") String allowedOrigins) {
         this.handler = handler;
         this.allowedOrigins = allowedOrigins.split("\\s*,\\s*");
     }

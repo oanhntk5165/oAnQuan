@@ -31,6 +31,7 @@ public final class DatabaseConnection {
             ghiDeTuMoiTruong(p, "url", "OANQUAN_DB_URL");
             ghiDeTuMoiTruong(p, "user", "OANQUAN_DB_USER");
             ghiDeTuMoiTruong(p, "password", "OANQUAN_DB_PASSWORD");
+
             if (p.getProperty("url") == null || p.getProperty("user") == null
                     || p.getProperty("password") == null) {
                 throw new DaoException(
