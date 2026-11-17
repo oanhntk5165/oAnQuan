@@ -86,7 +86,7 @@ export default function App() {
   }
 
   return (
-    <main className={`app-shell ${game.auth && activePage === "home" && !hasActiveGame ? "app-shell-fixed" : ""} ${hasActiveGame ? "app-shell-game" : ""}`}>
+    <main className={`app-shell ${game.auth && activePage === "home" && !hasActiveGame ? "app-shell-fixed" : ""} ${game.auth && activePage === "guide" ? "app-shell-guide" : ""} ${hasActiveGame ? "app-shell-game" : ""}`}>
       {!hasActiveGame && !(game.auth && ["home", "history", "leaderboard", "guide", "profile"].includes(activePage)) && (
         <AppHeader connected={game.connected} connectionIssue={game.connectionIssue}
           auth={game.auth} activePage={activePage} onlineCount={game.onlineCount}
@@ -187,15 +187,17 @@ export default function App() {
             ) : activePage === "guide" ? (
               <section className="guide-page">
                 <SubPageHeader title="Hướng dẫn chơi" onBack={() => setActivePage("home")} />
-                <div className="guide-intro-card"><div className="guide-board-symbol">✳</div><div><strong>Bàn cờ và cách tính điểm</strong><p>Bàn có 10 ô dân, mỗi ô bắt đầu với 5 quân, và 2 ô quan, mỗi ô có 1 quân quan. Quân quan trị giá 10 điểm; quân dân được tính 1 điểm mỗi quân.</p></div></div>
+                <div className="guide-intro-card"><div className="guide-board-symbol">✳</div><div><strong>Bàn cờ và cách tính điểm</strong><p>10 ô dân có 5 quân mỗi ô; 2 ô quan có 1 quân mỗi ô. Quân quan tính 10 điểm, quân dân tính 1 điểm.</p></div></div>
                 <div className="guide-steps">
-                  <article className="guide-step-card"><span className="guide-step-number">01</span><h2>Chọn ô và hướng đi</h2><p>Đến lượt, chọn một ô dân bên phía mình đang có quân. Chọn rải theo chiều thuận hoặc ngược trên vòng bàn cờ.</p></article>
-                  <article className="guide-step-card"><span className="guide-step-number">02</span><h2>Rải quân</h2><p>Bốc toàn bộ quân trong ô đã chọn, rải lần lượt mỗi ô một quân theo hướng đã chọn. Nếu ô kế tiếp có quân dân, bốc số quân đó lên và rải tiếp.</p></article>
-                  <article className="guide-step-card"><span className="guide-step-number">03</span><h2>Ăn quân</h2><p>Khi quân cuối dừng trước một ô trống, bạn ăn quân ở ô có quân ngay sau ô trống đó. Có thể tiếp tục ăn theo từng cặp ô trống rồi ô có quân; dừng khi gặp hai ô trống liền nhau.</p></article>
-                  <article className="guide-step-card"><span className="guide-step-number">04</span><h2>Ô quan và kết thúc</h2><p>Nếu ô kế tiếp là ô quan còn quân, lượt đi dừng lại. Khi cả hai ô quan đã hết, ván kết thúc. Quân dân còn trên phần bàn của mỗi bên được cộng cho bên đó; ai nhiều điểm hơn sẽ thắng.</p></article>
+                  <article className="guide-step-card"><span className="guide-step-number">01</span><h2>Chọn ô và hướng</h2><p>Chọn một ô dân có quân bên phía mình, rồi chọn rải theo chiều thuận hoặc ngược.</p></article>
+                  <article className="guide-step-card"><span className="guide-step-number">02</span><h2>Rải quân</h2><p>Rải từng quân vào các ô kế tiếp. Nếu quân cuối vào ô dân còn quân, bốc lên và rải tiếp.</p></article>
+                  <article className="guide-step-card"><span className="guide-step-number">03</span><h2>Ăn quân</h2><p>Nếu quân cuối dừng trước ô trống, ăn quân ở ô có quân ngay sau đó. Tiếp tục ăn qua từng cặp ô trống; dừng khi gặp hai ô trống liền nhau.</p></article>
+                  <article className="guide-step-card"><span className="guide-step-number">04</span><h2>Ô quan và kết thúc</h2><p>Lượt dừng khi ô kế tiếp là ô quan còn quân. Hết quân ở cả hai ô quan thì kết thúc ván; cộng quân dân còn lại, bên nhiều điểm hơn thắng.</p></article>
                 </div>
-                <div className="guide-note"><strong>Hết quân để đi?</strong><p>Nếu cả 5 ô dân của bạn đều trống, hệ thống lấy 5 điểm của bạn để rải bù mỗi ô 1 quân. Nếu không đủ 5 điểm, bạn thua ván.</p></div>
-                <div className="guide-note guide-online-note"><strong>Khi chơi đấu hạng</strong><p>Mỗi lượt có 20 giây. Bỏ lượt hoặc hết giờ sẽ khiến hệ thống tự đi một ô; bỏ lượt hai lần sẽ bị xử thua. Mất kết nối quá 45 giây cũng bị xử thua.</p></div>
+                <div className="guide-notes">
+                  <div className="guide-note"><strong>Hết quân để đi?</strong><p>Nếu 5 ô dân đều trống, dùng 5 điểm để rải bù mỗi ô 1 quân. Không đủ điểm thì thua.</p></div>
+                  <div className="guide-note guide-online-note"><strong>Đấu hạng</strong><p>Hết giờ hoặc bỏ lượt: hệ thống tự đi một ô. Bỏ lượt hai lần hoặc mất kết nối quá 45 giây thì thua.</p></div>
+                </div>
               </section>
             ) : activePage !== "home" && (
               <section className="page-placeholder">

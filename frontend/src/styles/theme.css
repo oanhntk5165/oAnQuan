@@ -47,6 +47,7 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 button:focus-visible, input:focus-visible { outline: 3px solid rgba(0, 95, 115, .45); outline-offset: 3px; }
 .app-shell { min-height: 100vh; height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.app-shell-guide { height: auto; min-height: 100vh; overflow-x: hidden; overflow-y: auto; }
 .app-shell::before, .app-shell::after { content: ""; pointer-events: none; position: fixed; border-radius: 50%; z-index: 0; }
 .app-shell::before { width: 420px; height: 420px; background: rgba(255, 202, 38, .11); top: 120px; left: -260px; }
 .app-shell::after { width: 280px; height: 280px; background: rgba(154, 188, 4, .09); right: -180px; bottom: 60px; }

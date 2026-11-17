@@ -83,16 +83,17 @@ export default function Lobby({
       </button>
       <h2>Chơi với bạn</h2>
       <div className="local-setup-player-grid">
+        <label className="local-setup-player-card local-player-one">
+          <strong>Người chơi 1 — hàng trên</strong>
+          <input aria-label="Tên người chơi 1" value={firstName} onChange={(e) => setFirstName(e.target.value)}
+                 maxLength={24} placeholder="Nhập tên người chơi 1" />
+        </label>
         <label className="local-setup-player-card local-player-two">
           <strong>Người chơi 2 — hàng dưới</strong>
           <input aria-label="Tên người chơi 2" value={secondName} onChange={(e) => setSecondName(e.target.value)}
             maxLength={24} placeholder="Nhập tên người chơi 2" />
         </label>
-        <label className="local-setup-player-card local-player-one">
-          <strong>Người chơi 1 — hàng trên</strong>
-          <input aria-label="Tên người chơi 1" value={firstName} onChange={(e) => setFirstName(e.target.value)}
-            maxLength={24} placeholder="Nhập tên người chơi 1" />
-        </label>
+
       </div>
       <section className="local-first-turn" aria-labelledby="local-first-turn-title">
         <h3 id="local-first-turn-title">Ai đi trước?</h3>
