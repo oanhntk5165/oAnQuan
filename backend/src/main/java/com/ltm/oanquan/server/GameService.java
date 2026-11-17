@@ -39,6 +39,8 @@ final class GameService implements AutoCloseable {
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final int ELO_K_FACTOR = 32;
     private static final int RANKED_TIME_CONTROL_MS = 20_000;
+    private static final int ANIMATION_STEP_DELAY_MS = 250;
+    private static final int ANIMATION_END_DELAY_MS = 120;
 
     private final MatchDao matchDao;
     private final ObjectMapper json;
@@ -650,8 +652,7 @@ final class GameService implements AutoCloseable {
         if (room.mode == Mode.BOT) {
             if (slot == 1) {
                 long animationDurationMs = previousMoveEventCount == 0 ? 0
-                        : (long) (previousMoveEventCount * Math.max(1,
-                                Math.min(120, 4000.0 / previousMoveEventCount))) + 120;
+                        : (long) previousMoveEventCount * ANIMATION_STEP_DELAY_MS + ANIMATION_END_DELAY_MS;
                 long turnNoticeDurationMs = 2800;
                 room.clockTask = scheduler.schedule(() -> nuocBot(room),
                         animationDurationMs + turnNoticeDurationMs, TimeUnit.MILLISECONDS);

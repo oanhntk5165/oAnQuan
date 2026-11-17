@@ -3,6 +3,9 @@ import Icon from "./Icon.jsx";
 import { Pit, StorePit } from "./GameBoard.jsx";
 import formatTime from "../utils/formatTime.js";
 
+const ANIMATION_STEP_DELAY_MS = 250;
+const ANIMATION_END_DELAY_MS = 120;
+
 const PLAYER_PITS = {
   0: [1, 2, 3, 4, 5],
   1: [7, 8, 9, 10, 11],
@@ -135,7 +138,6 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
       const visual = copyBoardForAnimation(move.from, move.to);
       setAnimationTurn(move.from.turn);
       setAnimationBoard(visual);
-      const stepDelay = Math.max(1, Math.min(120, 4000 / move.events.length));
       let eventIndex = 0;
       const playStep = () => {
         if (eventIndex >= move.events.length) {
@@ -143,7 +145,7 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
           animationTimer.current = window.setTimeout(() => {
             animationTimer.current = null;
             playNext();
-          }, 120);
+          }, ANIMATION_END_DELAY_MS);
           return;
         }
 
@@ -155,7 +157,7 @@ export default function GameScreen({ auth, board, messages, onAction, onRematch,
           quan: [...visual.quan],
           scores: [...visual.scores],
         });
-        animationTimer.current = window.setTimeout(playStep, stepDelay);
+        animationTimer.current = window.setTimeout(playStep, ANIMATION_STEP_DELAY_MS);
       };
       playStep();
     };
