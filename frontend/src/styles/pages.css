@@ -51,7 +51,7 @@
 .profile-identity-card h1 { margin: 13px 0 3px; font: 900 28px "Nunito",sans-serif; }
 .profile-points { font: 900 16px "Nunito",sans-serif; }
 .profile-rank { margin-top: 9px; padding: 6px 13px; border-radius: 18px; background: #ffedb0; color: #8a5716; font-size: 11px; font-weight: 800; }
-.profile-stat-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+.profile-stat-grid { display: grid; grid-template-columns: minmax(0,1fr); width: min(491px,100%); margin-inline: auto; gap: 18px; }
 .profile-stat-card { padding: 22px; border: 1px solid var(--card-border); border-radius: 17px; background: var(--card-surface); color: var(--forest); box-shadow: var(--card-shadow); }
 .profile-stat-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: #ffedb0; color: #9d5715; font-size: 22px; }
 .profile-stat-card h2 { margin: 14px 0 18px; font: 900 17px "Nunito",sans-serif; }
@@ -68,9 +68,9 @@
 .guide-page>h1 { margin: 12px 0 7px; color: var(--forest); font: 900 clamp(30px,4vw,44px) "Nunito",sans-serif; }
 .guide-intro-card { display: flex; align-items: center; gap: 17px; margin-bottom: 17px; padding: 20px; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-surface-soft); color: var(--forest); }
 .guide-intro-card strong,.guide-step-card h2,.guide-note strong { font: 900 15px "Nunito",sans-serif; }
-.guide-intro-card p,.guide-step-card p,.guide-note p { margin: 7px 0 0; color: #727b68; font-size: 11px; line-height: 1.75; }
-.guide-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
-.guide-step-card { position: relative; min-height: 172px; padding: 21px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface); color: var(--forest); }
+.guide-intro-card p,.guide-step-card p,.guide-note p { margin: 5px 0 0; color: #000000; font-family: "Be Vietnam Pro", sans-serif; font-size: 12px; line-height: 1.65; font-weight: 400;}
+.guide-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.guide-step-card { position: relative; min-height: 0; padding: 14px 16px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface); color: var(--forest); }
 .guide-step-number { color: #c58d1d; font: 900 12px "Nunito",sans-serif; letter-spacing: 1px; }
 .guide-step-card h2 { margin: 11px 0 0; }
 .guide-note { margin-top: 15px; padding: 16px 19px; border-left: 4px solid var(--sunshine); border-radius: 10px; background: var(--card-surface-warm); color: #705322; }
@@ -80,3 +80,23 @@
 .subpage-header h1 { margin: 0; color: var(--forest); font: 900 clamp(28px,4vw,40px) "Nunito",sans-serif; letter-spacing: -1px; }
 .subpage-back { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border: 2px solid rgba(25,83,43,.56); border-radius: 14px; background: #fff3d4; color: var(--forest); box-shadow: inset 0 0 0 2px rgba(255,202,38,.36), 0 4px 12px rgba(71,68,38,.08); }
 .subpage-back:hover { background: #e3ead2; }
+.app-shell.app-shell-scrollable {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+.app-shell.app-shell-scrollable .authenticated-layout {
+  flex: 0 0 auto;
+  min-height: 0;
+  padding-bottom: 32px;
+  overflow: visible;
+}
+.app-shell.app-shell-scrollable .signed-in {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}

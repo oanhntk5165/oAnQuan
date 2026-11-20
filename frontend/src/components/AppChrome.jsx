@@ -1,6 +1,7 @@
 import Icon from "./Icon.jsx";
 
 const NAV_ITEMS = [
+  { id: "home", label: "Trang chủ", icon: "home" },
   { id: "history", label: "Lịch sử", icon: "history" },
   { id: "leaderboard", label: "Xếp hạng", icon: "chart" },
   { id: "guide", label: "Hướng dẫn", icon: "book" },

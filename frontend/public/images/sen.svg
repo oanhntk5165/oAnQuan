@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="180" viewBox="0 0 210 90">
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="0.1" y2="1"><stop offset="0" stop-color="#F5D27D"/><stop offset="1" stop-color="#E9BF60"/></linearGradient>
+ <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F9E7B5" stop-opacity=".18"/><stop offset=".35" stop-color="#F5D98E"/><stop offset="1" stop-color="#F4D58A" stop-opacity=".8"/></linearGradient>
+</defs>
+<!-- ornamental thin underline, behind the lotus -->
+<path d="M12 69 Q50 70 82 69 L192 69" fill="none" stroke="url(#line)" stroke-width="5" stroke-linecap="round"/>
+<!-- rear diagonal petals -->
+<path d="M91 64 C79 55 74 43 75 32 C75 27 78 23 81 23 C90 25 97 34 100 47 L101 64 Z" fill="url(#gold)"/>
+<path d="M108 64 C120 54 125 43 124 32 C124 27 121 24 118 24 C109 27 103 35 101 47 L101 64 Z" fill="url(#gold)"/>
+<!-- center upright petal -->
+<path d="M99 65 C90 53 90 37 93 27 C95 20 98 16 101 13 C108 21 113 32 112 43 C112 52 107 60 103 65 Z" fill="#F0C96E"/>
+<!-- open lower left petal -->
+<path d="M97 65 C83 65 69 60 64 49 C62 45 61 41 62 38 C75 38 86 46 93 56 Z" fill="#EEC467"/>
+<!-- open lower right petal -->
+<path d="M106 65 C120 65 134 60 139 50 C141 46 142 42 141 39 C129 39 117 47 110 57 Z" fill="#EEC467"/>
+<!-- subtle lower joining petals -->
+<path d="M91 65 Q101 63 112 65" fill="none" stroke="#F0CB78" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

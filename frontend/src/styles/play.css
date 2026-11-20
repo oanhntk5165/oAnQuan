@@ -1,0 +1,75 @@
+/* =========================================================
+   13) PLAY / GIAO DIỆN MÀN CHƠI
+   - Nền ván đấu, bảng tên và điểm, đồng hồ, khung bàn cờ, quân và nút chọn chiều.
+   - Ghi đè giao diện trong game.css; căn các ô theo broadp.svg và co giãn bằng biến --play-unit.
+   ========================================================= */
+ .bot-game-layout {
+  --play-unit: min(calc(100vw / 1672), calc(100dvh / 941));
+  width: 100%;
+  background: #fff0d2 url('/images/bgplay.png') center / 100% 100% no-repeat;
+  color: #164d27;
+}
+.bot-game-layout::before { display: none; }
+.bot-game-layout .match-topbar.bot-topbar {
+  position: absolute; top: calc(10 * var(--play-unit)); left: 50%; transform: translateX(-50%);
+  width: calc(1572 * var(--play-unit)); height: calc(174 * var(--play-unit)); margin: 0; padding: 0;
+  grid-template-columns: 98fr 476fr 290fr 424fr 82fr 82fr; gap: calc(24 * var(--play-unit));
+}
+.bot-game-layout .bot-top-action {
+  width: 100%; height: calc(90 * var(--play-unit)); padding: 0; border: calc(3 * var(--play-unit)) solid #d9a33d;
+  border-radius: calc(32 * var(--play-unit)); color: #164d27;
+  background: linear-gradient(130deg, #fff9e4, #f9df9f);
+  box-shadow: inset 0 0 0 calc(3 * var(--play-unit)) #fff9dd, 0 calc(5 * var(--play-unit)) calc(6 * var(--play-unit)) #84612455;
+}
+.bot-game-layout .bot-top-action svg { width: calc(46 * var(--play-unit)); height: calc(46 * var(--play-unit)); stroke-width: 3; }
+.bot-game-layout .bot-help-action span { font: 900 calc(58 * var(--play-unit))/1 "Nunito", sans-serif; }
+.bot-game-layout .bot-player-card {
+  height: calc(100 * var(--play-unit)); min-height: 0; padding: calc(14 * var(--play-unit)) calc(24 * var(--play-unit)); gap: calc(16 * var(--play-unit));
+  border: calc(3 * var(--play-unit)) solid #d5a135; border-radius: calc(40 * var(--play-unit));
+  background: url('/images/may.svg') 65% bottom / 24% auto no-repeat, linear-gradient(120deg, #fff4d5dd, #fce8bfdd);
+  box-shadow: inset 0 0 0 calc(3 * var(--play-unit)) #fff7d6, 0 calc(5 * var(--play-unit)) calc(8 * var(--play-unit)) #84612444;
+}
+.bot-game-layout .match-player-emblem { display: grid; place-items: center; flex-shrink: 0; width: calc(66 * var(--play-unit)); height: calc(66 * var(--play-unit)); border-radius: 50%; background: linear-gradient(130deg, #f4eab3, #e0d68e); }
+.bot-game-layout .match-player-emblem svg { width: calc(39 * var(--play-unit)); height: calc(39 * var(--play-unit)); }
+.bot-game-layout .bot-player-info { flex: 1; }
+.bot-game-layout .bot-player-info small { display: none; }
+.bot-game-layout .bot-player-info strong { font: 900 calc(28 * var(--play-unit))/1.15 "Nunito", sans-serif; white-space: normal; overflow: visible; overflow-wrap: anywhere; text-overflow: clip; }
+.bot-game-layout .bot-player-score { display: grid; justify-items: center; align-content: center; gap: 0; width: calc(90 * var(--play-unit)); flex-shrink: 0; border-left: calc(2 * var(--play-unit)) solid #e7bb69; }
+.bot-game-layout .bot-player-score small { color: #164d27; font: 800 calc(23 * var(--play-unit))/1.2 "Nunito", sans-serif; letter-spacing: 0; }
+.bot-game-layout .bot-player-score strong { font: 900 calc(44 * var(--play-unit))/1.1 "Nunito", sans-serif; }
+.bot-game-layout .bot-clock { height: calc(174 * var(--play-unit)); min-height: 0; gap: 0; padding: calc(42 * var(--play-unit)) 0 calc(16 * var(--play-unit)); border: 0; border-radius: 0; background: url('/images/time.svg') center / 100% 100% no-repeat; box-shadow: none; }
+.bot-game-layout .bot-clock small { color: #fff4d5; font: 800 calc(27 * var(--play-unit))/1.2 "Nunito", sans-serif; letter-spacing: 0; }
+.bot-game-layout .bot-clock strong { color: #fff6d9; font: 900 calc(53 * var(--play-unit))/1.2 "Nunito", sans-serif; font-variant-numeric: tabular-nums; }
+.bot-game-layout .bot-match-main { position: absolute; top: calc(250 * var(--play-unit)); left: 50%; transform: translateX(-50%); width: calc(1400 * var(--play-unit)); height: calc(565 * var(--play-unit)); padding: 0; }
+.bot-game-layout .board-wrap { width: 100%; height: 100%; padding: 0; }
+.bot-game-layout .board-frame { position: relative; display: block; width: 100%; height: 100%; min-height: 0; padding: 0; border: 0; border-radius: 0; aspect-ratio: auto; background: url('/images/broadp.svg') center / 100% 100% no-repeat; box-shadow: none; }
+.bot-game-layout .pit-row { position: absolute; left: 19.142857%; width: 62.285714%; height: 31.858407%; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2.06422%; }
+.bot-game-layout .pit-row-top { top: 16.106195%; }
+.bot-game-layout .pit-row-bottom { top: 50.619469%; }
+.bot-game-layout .pit-shell { width: 100%; height: 100%; min-width: 0; }
+.bot-game-layout .pit { width: 100%; max-width: none; min-width: 0; height: 100%; aspect-ratio: auto; border: 0; border-radius: calc(20 * var(--play-unit)); background: transparent; box-shadow: none; opacity: 1; padding: 0; }
+.bot-game-layout .pit-legal { box-shadow: inset 0 0 0 calc(3 * var(--play-unit)) #fff4a3, 0 0 0 calc(3 * var(--play-unit)) #f4bf25, 0 0 calc(12 * var(--play-unit)) #ffcb25; }
+.bot-game-layout .pit-selected, .bot-game-layout .pit-playable:hover { box-shadow: inset 0 0 0 calc(4 * var(--play-unit)) #fff3a1, 0 0 calc(18 * var(--play-unit)) #ffc526; }
+.bot-game-layout .seed-count { right: 8%; bottom: 6%; height: auto; min-width: 0; padding: 0; background: none; color: #194e28; font: 800 calc(29 * var(--play-unit))/1 "Nunito", sans-serif; }
+.bot-game-layout .seed-stack { inset: 20% 15%; gap: calc(3 * var(--play-unit)); opacity: 1; }
+.bot-game-layout .seed-stack img { width: calc(20 * var(--play-unit)); height: calc(17 * var(--play-unit)); }
+.bot-game-layout .store-pit { position: absolute; top: 15.39823%; width: 11.5%; height: 68.318584%; min-width: 0; }
+.bot-game-layout .store-pit:first-child { right: 6.357143%; }
+.bot-game-layout .store-pit:last-child { left: 6.357143%; }
+.bot-game-layout .store-pit::before { display: none; }
+.bot-game-layout .store-stone { width: calc(65 * var(--play-unit)); height: calc(54 * var(--play-unit)); bottom: 46%; }
+.bot-game-layout .store-number { bottom: 30%; color: #194e28; font: 900 calc(40 * var(--play-unit))/1 "Nunito", sans-serif; }
+.bot-game-layout .store-pit .store-seed-stack { inset: 22% 10% 60%; }
+.bot-game-layout .pit-shell-selected { z-index: 6; }
+.bot-game-layout .pit-direction-tools { top: 4px; bottom: auto; transform: translateX(-50%); gap: calc(24 * var(--play-unit)); }
+.bot-game-layout .pit-direction-button { width: max(28px, calc(45 * var(--play-unit))); height: max(28px, calc(45 * var(--play-unit))); font-size: max(18px, calc(28 * var(--play-unit))); border: 2px solid #fff2b1; }
+.bot-game-layout .bot-game-status { position: absolute; bottom: calc(40 * var(--play-unit)); left: 50%; transform: translateX(-50%); }
+@media (max-aspect-ratio: 1/1) {
+  .bot-game-layout .match-topbar.bot-topbar { top: 8vh; }
+  .bot-game-layout .bot-match-main { top: 38%; }
+  .bot-game-layout .bot-player-info strong { font-size: calc(28 * var(--play-unit)); }
+  .bot-game-layout .bot-player-score { width: calc(75 * var(--play-unit)); }
+  .bot-game-layout .match-player-emblem { display: none; }
+}
+
+

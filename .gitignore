@@ -7,3 +7,4 @@
 **/.env
 backend/oanquan_backup.sql
 backend/oanquan_backup.sql
+backend/src/main/resources/application.properties

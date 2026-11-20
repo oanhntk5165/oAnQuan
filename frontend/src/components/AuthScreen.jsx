@@ -1,13 +1,15 @@
 import { useState } from "react";
 import Icon from "./Icon.jsx";
 
-export default function AuthScreen({ connected, connectionIssue, wsUrl, onAuthenticate }) {
+export default function AuthScreen({ connected, connectionIssue, onAuthenticate }) {
   const [formMode, setFormMode] = useState("login");
   const [form, setForm] = useState({ username: "", password: "" });
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function submit(event) {
     event.preventDefault();
+    if (busy || !connected) return;
     setBusy(true);
     try {
       const succeeded = await onAuthenticate(formMode, form);
@@ -21,38 +23,37 @@ export default function AuthScreen({ connected, connectionIssue, wsUrl, onAuthen
 
   return (
     <div className="welcome-layout auth-only">
-      <section className="auth-card auth-card-full">
-        <div className="auth-card-top"><span className="sun-icon">✳</span><span className="tiny-label">SẴN SÀNG CHƯA?</span></div>
-        <h2>{formMode === "login" ? "Chào bạn quay lại!" : "Mời bạn vào hội!"}</h2>
+      <section className="auth-card auth-card-full" aria-label={formMode === "login" ? "Đăng nhập" : "Đăng ký"}>
+        <svg className="auth-frame" viewBox="270 90 910 910" preserveAspectRatio="none" aria-hidden="true"><image href="/images/khung-dang-nhap.svg" width="1448" height="1086" /></svg>
+        <div className="auth-card-top"><span className="tiny-label">Sẵn sàng chưa?</span></div>
+        <h2>{formMode === "login" ? "Chào mừng bạn quay lại!" : "Mời bạn vào hội!"}</h2>
+        <svg className="auth-title-flourish" viewBox="0 0 320 28" aria-hidden="true"><path d="M2 15C84-15 164 8 218 15c25 3 39 1 44-7-1 20-39 20-72 12C121 3 62 1 2 15Zm258-5c20-8 42-2 58 5-22-4-35-7-58-5Z" fill="currentColor" /></svg>
         <p className="auth-subtitle">{formMode === "login" ? "Đăng nhập để tiếp tục cuộc vui." : "Tạo tài khoản mới, chỉ mất một phút."}</p>
-        {!connected && <div className="connection-help" role="status">
-          <strong>Chưa kết nối được tới backend.</strong>
-          <span>Đăng ký cần backend Java và MySQL đang chạy.</span>
-          <code>{wsUrl}</code>
-          <span>Chạy `.\mvnw.cmd exec:java "-Dexec.mainClass=com.ltm.oanquan.server.TcpGameServer"` trong thư mục backend.</span>
-        </div>}
+        {!connected && <p className="auth-connection-status" role="status">{connectionIssue ? "Mất kết nối máy chủ. Đang thử kết nối lại…" : "Đang kết nối máy chủ…"}</p>}
         <form className="auth-form" onSubmit={submit}>
           <label>Tên người chơi
-            <input autoComplete="username" required minLength={3} maxLength={20} value={form.username}
-              onChange={(event) => setForm({ ...form, username: event.target.value })} placeholder="Ví dụ: banbe_01" />
+            <span className="auth-input"><Icon name="user" size={25} /><input autoComplete="username" required minLength={3} maxLength={20} value={form.username} disabled={busy}
+              onChange={(event) => setForm({ ...form, username: event.target.value })} placeholder="Ví dụ: banbe_01" /></span>
           </label>
           <label>Mật khẩu
-            <input autoComplete={formMode === "login" ? "current-password" : "new-password"} required minLength={6} maxLength={64}
-              type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })}
+            <span className="auth-input"><Icon name="lock" size={25} /><input autoComplete={formMode === "login" ? "current-password" : "new-password"} required minLength={6} maxLength={64} disabled={busy}
+              type={showPassword ? "text" : "password"} value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })}
               placeholder="Ít nhất 6 ký tự" />
+              <button type="button" className="auth-password-toggle" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"} aria-pressed={showPassword}><Icon name={showPassword ? "eye" : "eye-off"} size={25} /></button>
+            </span>
           </label>
           <button className="button button-primary auth-submit" disabled={!connected || busy}>
             {busy ? "Đang xử lý..." : formMode === "login" ? "Vào chơi thôi" : "Tạo tài khoản"}
-            <Icon name="arrow" size={17} />
+            <Icon name="arrow-right" size={28} />
           </button>
         </form>
         <div className="auth-switch">
           {formMode === "login" ? "Chưa có tài khoản?" : "Đã có tài khoản?"}
-          <button onClick={() => setFormMode(formMode === "login" ? "register" : "login")}>
+          <button disabled={busy} onClick={() => { setFormMode(formMode === "login" ? "register" : "login"); setShowPassword(false); }}>
             {formMode === "login" ? "Đăng ký nhé" : "Đăng nhập"}
           </button>
         </div>
-        <div className="auth-foot"><span>✦</span> Chơi vui, chơi đẹp, chơi hết mình.</div>
+        <div className="auth-foot"><Icon name={formMode === "login" ? "book" : "leaf"} size={26} />{formMode === "login" ? "Cùng vui, chơi đẹp, chơi hết mình." : "Chơi vui, chơi đẹp, chơi hết mình."}</div>
       </section>
     </div>
   );

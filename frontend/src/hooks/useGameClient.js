@@ -11,6 +11,7 @@ export default function useGameClient(addNotice) {
   const [roomPlayers, setRoomPlayers] = useState([]);
   const [board, setBoard] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [communityMessages, setCommunityMessages] = useState([]);
   const [queueing, setQueueing] = useState(false);
   const [waitingRooms, setWaitingRooms] = useState([]);
   const [onlineCount, setOnlineCount] = useState(null);
@@ -121,6 +122,8 @@ export default function useGameClient(addNotice) {
           } else if (message.event === "matchmaking_queued") {
             setQueueing(true);
             addNotice("Đang tìm đối thủ...");
+          } else if (message.event === "community_message") {
+            setCommunityMessages((current) => [...current.slice(-499), message.data]);
           } else if (message.event === "chat") {
             setMessages((current) => [...current.slice(-29), message.data]);
           } else if (message.event === "player_disconnected") {
@@ -249,6 +252,7 @@ export default function useGameClient(addNotice) {
     sessionStorage.removeItem("oanquan.auth");
     sessionStorage.removeItem("oanquan.room");
     setAuth(null);
+    setCommunityMessages([]);
     setOnlineCount(null);
     setBoard(null);
     setRoomCode("");
@@ -272,6 +276,11 @@ export default function useGameClient(addNotice) {
     sessionStorage.removeItem("oanquan.room");
   }, [act, roomCode]);
 
+  const communityRequest = useCallback((action, fields = {}) => {
+    if (!auth) return Promise.reject(new Error("Vui lòng đăng nhập để chat."));
+    return request(action, { ...fields, token: auth.token });
+  }, [auth, request]);
+
   return {
     connected,
     connectionIssue,
@@ -280,6 +289,8 @@ export default function useGameClient(addNotice) {
     roomPlayers,
     board,
     messages,
+    communityMessages,
+    communityRequest,
     queueing,
     waitingRooms,
     onlineCount,

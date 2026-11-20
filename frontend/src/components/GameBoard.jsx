@@ -23,6 +23,7 @@ export function Pit({
       <button
         className={`pit ${quanPit ? "pit-quan" : ""} ${disabled ? "pit-disabled" : "pit-playable"} ${legal ? "pit-legal" : ""} ${selected ? "pit-selected" : ""}`}
         disabled={disabled}
+        aria-pressed={selected}
         onClick={onClick}
         aria-label={`${quanPit ? "Ô quan" : `Ô ${index}`}, ${seedCount} quân`}>
         <span className="seed-count">{seedCount}</span>
@@ -32,11 +33,11 @@ export function Pit({
       </button>
       {!disabled && selected && onChooseDirection && (
         <div className="pit-direction-tools" onClick={(event) => event.stopPropagation()}>
-          <button type="button" className="pit-direction-button left" onClick={(event) => {
+          <button type="button" className="pit-direction-button left" aria-label="Rải sang trái" onClick={(event) => {
             event.stopPropagation();
             onChooseDirection(-1);
           }}>←</button>
-          <button type="button" className="pit-direction-button right" onClick={(event) => {
+          <button type="button" className="pit-direction-button right" aria-label="Rải sang phải" onClick={(event) => {
             event.stopPropagation();
             onChooseDirection(1);
           }}>→</button>

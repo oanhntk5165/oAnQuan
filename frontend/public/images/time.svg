@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="260" viewBox="0 0 440 260" preserveAspectRatio="none">
+<defs>
+<linearGradient id="bg" x2="0" y2="1"><stop stop-color="#407842"/><stop offset=".48" stop-color="#18552c"/><stop offset="1" stop-color="#07401e"/></linearGradient>
+<linearGradient id="edge" x2="0" y2="1"><stop stop-color="#fff1a2"/><stop offset=".24" stop-color="#cd9229"/><stop offset=".5" stop-color="#ffeeb2"/><stop offset=".8" stop-color="#ad761e"/><stop offset="1" stop-color="#f8d76a"/></linearGradient>
+<filter id="sh"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<path d="M80 64 H124 Q141 64 152 46 Q175 10 220 10 Q265 10 288 46 Q298 64 316 64 H360 Q412 64 412 117 V196 Q412 245 361 245 H79 Q28 245 28 196 V117 Q28 64 80 64Z" fill="#312815" opacity=".2" transform="translate(0 5)" filter="url(#sh)"/>
+<path d="M80 55 H124 Q141 55 152 37 Q175 5 220 5 Q265 5 288 37 Q298 55 316 55 H360 Q412 55 412 109 V187 Q412 237 361 237 H79 Q28 237 28 187 V109 Q28 55 80 55Z" fill="url(#bg)" stroke="url(#edge)" stroke-width="8"/>
+<path d="M80 66 H128 Q153 66 165 45 Q184 17 220 17 Q256 17 275 45 Q288 66 312 66 H360 Q400 66 400 109 V185 Q400 225 359 225 H80 Q40 225 40 185 V109 Q40 66 80 66Z" fill="none" stroke="#a7bd71" stroke-width="2" opacity=".65"/>
+<!-- gold lotus ornament on top -->
+<g fill="url(#edge)" stroke="#b98328" stroke-width="1"><path d="M220 46Q198 36 202 21Q219 28 220 46Z"/><path d="M220 46Q240 35 236 21Q222 29 220 46Z"/><path d="M219 48Q195 51 189 32Q209 33 219 48Z"/><path d="M221 48Q245 51 251 32Q231 33 221 48Z"/></g>
+<!-- flourish at bottom corners, blank center for dynamic timer text -->
+<g stroke="url(#edge)" fill="none" stroke-width="4" stroke-linecap="round"><path d="M66 190Q48 187 52 176Q58 164 68 176Q72 184 64 189Q81 204 91 187"/><path d="M374 190Q392 187 388 176Q382 164 372 176Q368 184 376 189Q359 204 349 187"/></g>
+</svg>

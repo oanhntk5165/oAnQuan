@@ -1,0 +1,52 @@
+/* =========================================================
+   10) AUTH / ĐĂNG NHẬP, ĐĂNG KÝ
+   - Giao diện xác thực: nền, logo, khung biểu mẫu, ô nhập và nút đăng nhập.
+   - Chỉnh tại đây khi cần thay đổi bố cục hoặc kích thước màn hình đăng nhập, đăng ký.
+   ========================================================= */
+.app-shell-auth { --auth-unit: clamp(.72px, calc((100dvh - 150px) / 690), 1px); background: #fff0d9 url('/images/background.svg') center / cover no-repeat; overflow-y: auto; }
+.app-shell-auth::before, .app-shell-auth::after { display: none; }
+.auth-brand { position: absolute; top: 0; left: 20px; width: clamp(260px, 27vw, 490px); height: 100px; overflow: hidden; z-index: 2; pointer-events: none; }
+.auth-brand img { position: absolute; width: 100%; top: -22%; left: 0; }
+.app-shell-auth .signed-out { width: 100%; height: auto; min-height: 100dvh; padding: calc(98 * var(--auth-unit)) 24px calc(65 * var(--auth-unit)); flex: 0 0 auto; }
+.app-shell-auth .auth-only { height: auto; padding: 0; }
+.app-shell-auth .auth-card { position: relative; isolation: isolate; width: calc(700 * var(--auth-unit)); max-width: 100%; padding: calc(28 * var(--auth-unit)) calc(60 * var(--auth-unit)) calc(40 * var(--auth-unit)); border: 0; border-radius: 0; background: none; box-shadow: none; }
+.auth-frame { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; overflow: visible; pointer-events: none; filter: drop-shadow(0 13px 10px #a86f1c28); }
+.app-shell-auth .auth-card-top { justify-content: flex-end; margin: 0 0 calc(18 * var(--auth-unit)); }
+.app-shell-auth .tiny-label { padding: calc(7 * var(--auth-unit)) calc(20 * var(--auth-unit)); border-radius: 30px; background: #ffe5aeaa; color: #382716; font: 600 calc(17 * var(--auth-unit)) "Be Vietnam Pro", sans-serif; letter-spacing: 0; box-shadow: 0 2px 3px #a5742320; }
+.app-shell-auth .auth-card h2 { margin: 0; text-align: center; color: #075522; font: 900 calc(48 * var(--auth-unit))/1.2 "Nunito", sans-serif; letter-spacing: -.8px; }
+.auth-title-flourish { display: block; width: calc(300 * var(--auth-unit)); max-width: 75%; height: calc(28 * var(--auth-unit)); margin: 0 auto; color: #006024; }
+.app-shell-auth .auth-subtitle { margin: calc(10 * var(--auth-unit)) 0 calc(20 * var(--auth-unit)); text-align: center; color: #292319; font: 400 calc(19 * var(--auth-unit))/1.5 "Be Vietnam Pro", sans-serif; }
+.app-shell-auth .auth-form { gap: calc(23 * var(--auth-unit)); }
+.app-shell-auth .auth-form label { gap: calc(7 * var(--auth-unit)); color: #0a5927; font: 900 calc(22 * var(--auth-unit))/1.3 "Nunito", sans-serif; }
+.auth-input { display: flex; align-items: center; gap: calc(17 * var(--auth-unit)); padding: 0 calc(25 * var(--auth-unit)); min-width: 0; height: calc(58 * var(--auth-unit)); border: 1px solid #858a46; border-radius: calc(23 * var(--auth-unit)); background: #fff9e777; box-shadow: 0 2px 3px #92733822; color: #253326; }
+.auth-input > svg { flex-shrink: 0; width: calc(25 * var(--auth-unit)); height: calc(25 * var(--auth-unit)); }
+.app-shell-auth .auth-form input { min-width: 0; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; color: #263d2e; font: 400 calc(19 * var(--auth-unit)) "Be Vietnam Pro", sans-serif; }
+.app-shell-auth .auth-form input::placeholder { color: #626e5b; }
+.app-shell-auth .auth-form input:focus { box-shadow: none; }
+.auth-input:focus-within { outline: 2px solid #648644; outline-offset: 2px; }
+.auth-password-toggle { flex-shrink: 0; display: grid; place-items: center; padding: 4px; border: 0; background: transparent; color: #293123; }
+.app-shell-auth .auth-submit { position: relative; justify-content: center; height: calc(70 * var(--auth-unit)); margin-top: calc(9 * var(--auth-unit)); padding: 0 calc(48 * var(--auth-unit)); border: 1px solid #36a135; border-radius: calc(29 * var(--auth-unit)); color: #fffcf0; background: url('/images/may.svg') left bottom / calc(130 * var(--auth-unit)) auto no-repeat, linear-gradient(110deg,#236525,#0b641d); font: 900 calc(30 * var(--auth-unit)) "Nunito", sans-serif; box-shadow: 0 5px 5px #86602733; }
+.app-shell-auth .auth-submit > svg { position: absolute; right: calc(34 * var(--auth-unit)); }
+.app-shell-auth .auth-submit:hover:not(:disabled) { filter: brightness(1.08); }
+.app-shell-auth .auth-submit:disabled { opacity: .65; cursor: not-allowed; }
+.app-shell-auth .auth-switch { margin-top: calc(32 * var(--auth-unit)); padding-top: calc(18 * var(--auth-unit)); border-color: #edbb754d; color: #292319; font: 400 calc(19 * var(--auth-unit))/1.5 "Be Vietnam Pro", sans-serif; }
+.app-shell-auth .auth-switch button { color: #ff6510; font: 900 calc(22 * var(--auth-unit)) "Nunito", sans-serif; }
+.app-shell-auth .auth-foot { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: calc(17 * var(--auth-unit)); color: #494d29; font: 400 calc(17 * var(--auth-unit))/1.5 "Be Vietnam Pro", sans-serif; }
+.auth-foot svg { flex-shrink: 0; color: #17652d; }
+.auth-connection-status { text-align: center; color: #8c4c24; font: 400 12px/1.5 "Be Vietnam Pro", sans-serif; margin: 0 0 12px; }
+@media (max-width: 600px) {
+  .app-shell-auth { --auth-unit: .8px; }
+  .auth-brand { width: 300px; left: 0; height: 75px; }
+  .app-shell-auth .signed-out { padding: 100px 25px 40px; }
+  .app-shell-auth .auth-card { padding: 24px 22px 28px; }
+  .app-shell-auth .auth-card h2 { font-size: clamp(25px, 7vw, 36px); }
+  .app-shell-auth .auth-subtitle { font-size: 14px; }
+  .app-shell-auth .auth-form input { font-size: 16px; }
+  .auth-input { padding-inline: 12px; gap: 9px; height: 48px; }
+  .app-shell-auth .auth-switch, .app-shell-auth .auth-foot { font-size: 13px; }
+  .app-shell-auth .auth-switch button { font-size: 16px; }
+  .app-shell-auth .auth-submit { padding-inline: 35px; font-size: 23px; }
+  .app-shell-auth .auth-submit > svg { right: 16px; width: 22px; }
+}
+
+

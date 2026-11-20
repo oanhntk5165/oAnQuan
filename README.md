@@ -248,6 +248,22 @@ Các ô được đánh số theo luật engine hiện có: `0` và `6` là ô q
 
 Sự kiện chính: `room_waiting`, `matchmaking_queued`, `match_found`, `match_started`, `state`, `chat`, `player_disconnected`, `player_reconnected`, `match_ended`. Payload `state` có bàn 12 ô (`dan`, `quan`), điểm, người đến lượt, thời gian còn lại, số lần bỏ lượt, mã trận và kết quả nếu đã kết thúc. `match_detail` trả lại metadata cùng danh sách nước đi và trạng thái bàn sau mỗi nước.
 
+### Chat cộng đồng
+
+Chat dùng cùng kết nối WebSocket của ứng dụng, độc lập với chat trong trận.
+
+- `community_history`: yêu cầu đăng nhập; trả `messages` (tối đa 50 tin cũ đến mới), `hasMore`. Truyền `before` bằng ID đầu trang để lấy trang cũ hơn.
+- `community_send`: yêu cầu đăng nhập; nhận `content`, trả tin đã lưu. Server tự lấy ID/tên người gửi từ phiên đăng nhập.
+- Sự kiện `community_message`: phát đến các kết nối đã đăng nhập sau khi ghi MySQL thành công. Các ID tin nhắn được truyền dưới dạng chuỗi để không mất độ chính xác trong JavaScript.
+- Nội dung không được rỗng, tối đa 500 đơn vị UTF-16 (cùng cách đếm `maxLength` trên frontend); mỗi tài khoản gửi tối đa 1 tin/giây, kể cả mở nhiều kết nối trên cùng backend.
+
+DAO tạo bảng `community_messages` bằng `CREATE TABLE IF NOT EXISTS` khi chat được truy cập lần đầu. Nếu tài khoản MySQL của ứng dụng không có quyền CREATE, chạy `community-chat.sql` trên database đang dùng trước khi khởi động backend. Không cần thay đổi bảng hoặc dữ liệu cũ.
+
+Thời gian lưu dưới dạng Unix milliseconds và truyền ISO UTC. Giao diện hiển thị giờ địa phương. Lịch sử chưa có cơ chế tự xóa; giới hạn tần suất hiện nằm trong bộ nhớ của một tiến trình backend và đặt lại khi khởi động lại.
+
+Sau khi cập nhật mã, khởi động lại backend và frontend. Kiểm tra với hai tài khoản: gửi tin, đóng/mở chat, tải lại trang, ngắt/kết nối lại mạng và cuộn lên qua 50 tin. Chat cộng đồng không xuất hiện trong trận bot, hai người hoặc đấu hạng, cũng như khi đang mở bảng thiết lập chế độ chơi.
+
+
 ## Ghi chú triển khai
 
 - Phòng, token và trận đang chạy chỉ lưu trong bộ nhớ; khởi động lại server sẽ kết thúc các phiên này. Lịch sử trận đã hoàn tất vẫn lưu trong MySQL.

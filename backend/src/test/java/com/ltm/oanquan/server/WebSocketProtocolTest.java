@@ -50,6 +50,15 @@ class WebSocketProtocolTest {
     }
 
     @Test
+    void communityChatRequiresAuthenticationOverWebSocket() throws Exception {
+        for (String action : new String[]{"community_history", "community_send"}) {
+            JsonNode response = sendRequest("{\"action\":\"" + action + "\",\"content\":\"hello\"}");
+            assertEquals("error", response.path("type").asText());
+            assertEquals("Vui lòng đăng nhập", response.path("message").asText());
+        }
+    }
+
+    @Test
     void legacyTcpProtocolRemainsAvailableAlongsideSpringWebSocket() throws Exception {
         try (Socket socket = new Socket("127.0.0.1", tcpServer.localPort());
              BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(

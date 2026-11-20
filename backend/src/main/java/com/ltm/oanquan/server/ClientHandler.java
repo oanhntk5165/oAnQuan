@@ -131,6 +131,14 @@ final class ClientHandler {
             case "exit_match" -> server.gameService().thoatTran(nguoiDung(request), this);
             case "chat" -> server.gameService().chat(
                     nguoiDung(request), this, batBuocChuoi(request, "content"));
+            case "community_send" -> server.communityChat().send(
+                    nguoiDung(request), batBuocChuoi(request, "content"));
+            case "community_history" -> {
+                nguoiDung(request);
+                long before = request.hasNonNull("before")
+                        ? Long.parseLong(request.path("before").asText()) : Long.MAX_VALUE;
+                yield server.communityChat().history(before);
+            }
             case "state" -> server.gameService().trangThai(
                     nguoiDung(request), this, batBuocChuoi(request, "code"));
             case "reconnect" -> server.gameService().ketNoiLai(

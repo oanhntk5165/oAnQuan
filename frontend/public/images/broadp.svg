@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="565" viewBox="0 0 1400 565" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="outer" x2="0" y2="1"><stop stop-color="#276a3e"/><stop offset=".52" stop-color="#07502a"/><stop offset="1" stop-color="#11552d"/></linearGradient>
+ <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#a87537"/><stop offset=".24" stop-color="#e2a959"/><stop offset=".56" stop-color="#935b29"/><stop offset=".8" stop-color="#b87a39"/><stop offset="1" stop-color="#75451e"/></linearGradient>
+ <linearGradient id="inner" x2="0" y2="1"><stop stop-color="#fff7e8"/><stop offset="1" stop-color="#f3dfb7"/></linearGradient>
+ <linearGradient id="cell" x2="0" y2="1"><stop stop-color="#f9f1db"/><stop offset=".45" stop-color="#fffaf0"/><stop offset="1" stop-color="#f7e3bd"/></linearGradient>
+ <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#f9e28e"/><stop offset=".27" stop-color="#d89e2d"/><stop offset=".52" stop-color="#fff3a8"/><stop offset=".8" stop-color="#be841d"/><stop offset="1" stop-color="#f5ce5d"/></linearGradient>
+ <filter id="shadow" x="-10%" y="-25%" width="120%" height="155%"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="cellShadow" x="-15%" y="-15%" width="130%" height="140%"><feGaussianBlur stdDeviation="4"/></filter>
+ <pattern id="grain" width="90" height="15" patternUnits="userSpaceOnUse"><path d="M4 4Q26 1 53 5T88 4 M1 12Q36 10 70 12" stroke="#5a3219" stroke-width=".9" opacity=".19" fill="none"/></pattern>
+</defs>
+<!-- transparent exterior, ornamental emerald wood frame only -->
+<rect x="32" y="31" width="1336" height="508" rx="254" fill="#5b4023" opacity=".18" filter="url(#shadow)"/>
+<path d="M 250,25 H 630 Q 668,25 690,6 Q 700,0 710,6 Q 735,25 770,25 H 1150 C 1282,25 1380,134 1380,280 C1380,426 1282,535 1150,535 H770 Q735,535 710,554 Q700,560 690,554 Q668,535 630,535 H250 C112,535 20,429 20,280 C20,131 112,25 250,25Z" fill="url(#outer)" stroke="#073d21" stroke-width="7"/>
+<path d="M250 34 H630 Q670 34 697 16 Q700 14 703 16 Q730 34 770 34 H1150 C1273 34 1369 139 1369 280 C1369 421 1273 526 1150 526 H770 Q730 526 703 544 Q700 546 697 544 Q670 526 630 526 H250 C122 526 31 420 31 280 C31 140 122 34 250 34Z" fill="none" stroke="#81ab72" stroke-width="3" opacity=".7"/>
+<rect x="55" y="60" width="1290" height="440" rx="220" fill="url(#wood)" stroke="url(#gold)" stroke-width="6"/>
+<rect x="63" y="69" width="1274" height="420" rx="210" fill="url(#grain)" opacity=".85"/>
+<rect x="70" y="77" width="1260" height="406" rx="203" fill="#165b33" stroke="#79451d" stroke-width="4"/>
+<!-- empty recessed quan bowls -->
+<path d="M245 87 C156 87 89 165 89 280 S156 473 245 473 H250 V87Z" fill="url(#inner)" stroke="#d49a4d" stroke-width="5"/>
+<path d="M1150 87 C1244 87 1311 166 1311 280 S1244 473 1150 473 H1149 V87Z" fill="url(#inner)" stroke="#d49a4d" stroke-width="5"/>
+<path d="M245 98 C164 98 101 171 101 280 S164 460 245 460" fill="none" stroke="#fff4d6" stroke-width="3" opacity=".9"/>
+<path d="M1153 98 C1236 98 1299 171 1299 280 S1236 460 1153 460" fill="none" stroke="#fff4d6" stroke-width="3" opacity=".9"/>
+<!-- exactly ten empty dân pits, no numbers and no stones -->
+<rect x="265" y="96" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="268" y="91" width="160" height="180" rx="20" fill="url(#cell)" stroke="#33734a" stroke-width="6"/>
+  <rect x="275" y="99" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="443" y="96" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="446" y="91" width="160" height="180" rx="20" fill="url(#cell)" stroke="#33734a" stroke-width="6"/>
+  <rect x="453" y="99" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="621" y="96" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="624" y="91" width="160" height="180" rx="20" fill="url(#cell)" stroke="#33734a" stroke-width="6"/>
+  <rect x="631" y="99" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="799" y="96" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="802" y="91" width="160" height="180" rx="20" fill="url(#cell)" stroke="#33734a" stroke-width="6"/>
+  <rect x="809" y="99" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="977" y="96" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="980" y="91" width="160" height="180" rx="20" fill="url(#cell)" stroke="#33734a" stroke-width="6"/>
+  <rect x="987" y="99" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="265" y="291" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="268" y="286" width="160" height="180" rx="20" fill="url(#cell)" stroke="#bd9329" stroke-width="6"/>
+  <rect x="275" y="294" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="443" y="291" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="446" y="286" width="160" height="180" rx="20" fill="url(#cell)" stroke="#bd9329" stroke-width="6"/>
+  <rect x="453" y="294" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="621" y="291" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="624" y="286" width="160" height="180" rx="20" fill="url(#cell)" stroke="#bd9329" stroke-width="6"/>
+  <rect x="631" y="294" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="799" y="291" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="802" y="286" width="160" height="180" rx="20" fill="url(#cell)" stroke="#bd9329" stroke-width="6"/>
+  <rect x="809" y="294" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<rect x="977" y="291" width="167" height="184" rx="21" fill="#092c17" opacity=".4" filter="url(#cellShadow)"/>
+  <rect x="980" y="286" width="160" height="180" rx="20" fill="url(#cell)" stroke="#bd9329" stroke-width="6"/>
+  <rect x="987" y="294" width="146" height="164" rx="15" fill="none" stroke="#fffef5" stroke-width="2" opacity=".8"/>
+<g fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round">
+<path d="M652 30 Q669 21 680 29 Q700 -3 720 29 Q731 20 748 30"/><circle cx="700" cy="26" r="12" fill="#dca32f"/>
+<path d="M652 531 Q669 540 680 531 Q700 563 720 531 Q731 540 748 531"/><circle cx="700" cy="535" r="12" fill="#dca32f"/>
+</g></svg>

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Icon from "./Icon.jsx";
+import MatchResult from "./MatchResult.jsx";
 import { Pit, StorePit } from "./GameBoard.jsx";
 import formatTime from "../utils/formatTime.js";
 
@@ -46,6 +47,9 @@ export default function GameScreen({
   onExitBot,
   onExitRanked,
   rematchStatus = "none",
+  muted = false,
+  onToggleMute,
+  onPlayStoneSound,
 }) {
   // =========================
   // 1) Trạng thái bàn cờ / lượt / chat
@@ -94,6 +98,7 @@ export default function GameScreen({
   const legalPits = useMemo(() => {
     if (
       !board ||
+      (board.mode !== "LOCAL" && gamePaused) ||
       board.gameOver ||
       isAnimating ||
       isTurnNoticeVisible ||
@@ -101,7 +106,7 @@ export default function GameScreen({
     )
       return [];
     return PLAYER_PITS[playerSlot].filter((pit) => (board.dan?.[pit] ?? 0) > 0);
-  }, [board, isAnimating, isTurnNoticeVisible, playerSlot]);
+  }, [board, gamePaused, isAnimating, isTurnNoticeVisible, playerSlot]);
   const visualBoard = animationBoard ?? board;
 
   // =========================
@@ -190,7 +195,9 @@ export default function GameScreen({
           return;
         }
 
-        applyMoveEvent(visual, move.events[eventIndex], move.from.turn);
+        const currentEvent = move.events[eventIndex];
+        applyMoveEvent(visual, currentEvent, move.from.turn);
+        if (currentEvent.type === "SOW" && onPlayStoneSound) onPlayStoneSound();
         eventIndex += 1;
         setAnimationBoard({
           ...visual,
@@ -276,9 +283,9 @@ export default function GameScreen({
       board.mode === "LOCAL"
         ? 20
         : Math.max(
-            0,
-            Math.ceil((board.remainingMs?.[board.turn] ?? 20000) / 1000),
-          );
+          0,
+          Math.ceil((board.remainingMs?.[board.turn] ?? 20000) / 1000),
+        );
     setLocalSeconds(initialSeconds);
   }, [board.mode, board.turn, board.gameOver, board.matchId]);
 
@@ -362,6 +369,7 @@ export default function GameScreen({
       isAnimating ||
       isTurnNoticeVisible ||
       selectedPit == null ||
+      (board.mode !== "LOCAL" && !legalPits.includes(selectedPit)) ||
       board.turn !== playerSlot
     )
       return;
@@ -495,6 +503,7 @@ export default function GameScreen({
             <div
               className={`bot-player-card opponent-row ${visibleTurn === topSlot && !board.gameOver ? "is-current-player" : ""}`}
             >
+              <span className="match-player-emblem"><Icon name={board.mode === "BOT" ? "monitor" : "user"} /></span>
               <div className="bot-player-info">
                 <small>
                   {board.mode === "LOCAL"
@@ -512,7 +521,7 @@ export default function GameScreen({
                 </strong>
               </div>
               <div className="bot-player-score">
-                <small>ĐIỂM</small>
+                <small>Điểm</small>
                 <strong>{visualBoard.scores?.[topSlot] ?? 0}</strong>
               </div>
             </div>
@@ -520,17 +529,18 @@ export default function GameScreen({
               className="bot-clock"
               aria-label={`Thời gian chơi ${formatTime((board.mode === "BOT" ? botElapsedSeconds : localSeconds) * 1000)}`}
             >
-              <small>THỜI GIAN</small>
+              <small>Thời gian</small>
               <strong>
                 {formatTime(
                   (board.mode === "BOT" ? botElapsedSeconds : localSeconds) *
-                    1000,
+                  1000,
                 )}
               </strong>
             </div>
             <div
               className={`bot-player-card you-row ${visibleTurn === bottomSlot && !board.gameOver ? "is-current-player" : ""}`}
             >
+              <span className="match-player-emblem"><Icon name="user" /></span>
               <div className="bot-player-info">
                 <small>
                   {board.mode === "LOCAL" ? "NGƯỜI CHƠI 2 · HÀNG DƯỚI" : "BẠN"}
@@ -542,7 +552,7 @@ export default function GameScreen({
                 </strong>
               </div>
               <div className="bot-player-score">
-                <small>ĐIỂM</small>
+                <small>Điểm</small>
                 <strong>{visualBoard.scores?.[bottomSlot] ?? 0}</strong>
               </div>
             </div>
@@ -709,14 +719,9 @@ export default function GameScreen({
                     key={pit}
                     index={pit}
                     board={visualBoard}
-                    disabled={
-                      isAnimating ||
-                      isTurnNoticeVisible ||
-                      board.mode !== "LOCAL" ||
-                      board.turn !== topSlot ||
-                      board.gameOver ||
-                      !board.dan?.[pit]
-                    }
+                    disabled={board.mode === "LOCAL"
+                      ? isAnimating || isTurnNoticeVisible || board.turn !== topSlot || board.gameOver || !board.dan?.[pit]
+                      : !isLegal}
                     legal={isLegal}
                     selected={isSelected}
                     onClick={() => handlePitSelection(pit)}
@@ -735,13 +740,9 @@ export default function GameScreen({
                     key={pit}
                     index={pit}
                     board={visualBoard}
-                    disabled={
-                      isAnimating ||
-                      isTurnNoticeVisible ||
-                      board.turn !== playerSlot ||
-                      board.gameOver ||
-                      !board.dan?.[pit]
-                    }
+                    disabled={board.mode === "LOCAL"
+                      ? isAnimating || isTurnNoticeVisible || board.turn !== playerSlot || board.gameOver || !board.dan?.[pit]
+                      : !isLegal}
                     legal={isLegal}
                     selected={isSelected}
                     onClick={() => handlePitSelection(pit)}
@@ -841,7 +842,7 @@ export default function GameScreen({
           }}
         >
           <section
-            className="match-dialog has-back-button"
+            className="match-dialog ingame-dialog ingame-guide-dialog has-back-button"
             role="dialog"
             aria-modal="true"
             aria-labelledby="match-guide-title"
@@ -857,20 +858,22 @@ export default function GameScreen({
             </button>
             <h2 id="match-guide-title">Hướng dẫn chơi</h2>
             <p>
-              Chọn một ô dân có quân ở hàng của bạn, sau đó chọn hướng rải và
-              bấm ô để đi.
+              Chọn một ô dân có quân ở hàng của bạn, sau đó bấm ô để đi và chọn hướng rải bạn muốn.
             </p>
             <p>
-              Quân được rải lần lượt theo hướng đã chọn. Khi gặp ô trống, bạn có
-              thể ăn các ô kế tiếp theo luật Ô ăn quan.
+              Quân được rải lần lượt theo hướng đã chọn. Nếu gặp một ô trống
+              và ngay sau đó là ô có quân, người chơi được ăn số quân trong ô đó theo luật Ô ăn quan.
             </p>
             <p>
-              Điểm được cộng khi ăn quân dân hoặc quân quan. Người có tổng điểm
-              cao hơn khi ván kết thúc sẽ thắng.
+              Nếu tiếp tục xuất hiện các cặp ô trống – ô có quân hợp lệ, người chơi được ăn liên tiếp.
+            </p>
+            <p>
+              Mỗi quân dân được tính 1 điểm còn quân quan được tính 10 điểm. Khi ván đấu kết thúc,
+              người có tổng điểm cao hơn sẽ chiến thắng.
             </p>
             <div className="match-dialog-actions">
               <button
-                className="confirm-surrender"
+                className="ingame-primary-action"
                 onClick={() => void closeGuide()}
                 disabled={botActionPending}
               >
@@ -883,7 +886,7 @@ export default function GameScreen({
       {showPause && (
         <div className="match-dialog-backdrop">
           <section
-            className="match-dialog bot-pause-dialog has-back-button"
+            className="match-dialog bot-pause-dialog ingame-dialog has-back-button"
             role="dialog"
             aria-modal="true"
             aria-labelledby="bot-pause-title"
@@ -926,7 +929,7 @@ export default function GameScreen({
       {confirmExit && (
         <div className="match-dialog-backdrop">
           <section
-            className="match-dialog has-back-button"
+            className="match-dialog ingame-dialog has-back-button"
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="exit-match-title"
@@ -984,9 +987,11 @@ export default function GameScreen({
       {confirmAction && (
         <div className="match-dialog-backdrop">
           <section
-            className="match-dialog has-back-button"
+            className="match-dialog ingame-dialog has-back-button"
             role="alertdialog"
             aria-modal="true"
+            aria-labelledby="turn-action-title"
+            aria-describedby="turn-action-description"
           >
             <button
               className="card-back-button"
@@ -996,12 +1001,12 @@ export default function GameScreen({
             >
               <Icon name="arrow-left" size={19} />
             </button>
-            <h2>
+            <h2 id="turn-action-title">
               {confirmAction === "pass"
                 ? "Xác nhận bỏ lượt?"
                 : "Xác nhận đầu hàng?"}
             </h2>
-            <p>
+            <p id="turn-action-description">
               {confirmAction === "pass"
                 ? "Hệ thống sẽ tự chọn một ô và đi thay bạn. Bỏ lượt hai lần trong ván sẽ bị xử thua."
                 : "Đầu hàng sẽ kết thúc ván đấu và tính kết quả thua cho bạn."}
@@ -1015,164 +1020,14 @@ export default function GameScreen({
           </section>
         </div>
       )}
-      {board.mode === "LOCAL" && board.gameOver && !isAnimating && (
-        <div className="match-dialog-backdrop">
-          <section
-            className="match-dialog local-result-card has-back-button"
-            role="dialog"
-            aria-modal="true"
-          >
-            <button
-              className="card-back-button"
-              onClick={onExitLocal}
-              aria-label="Thoát"
-              title="Thoát"
-            >
-              <Icon name="arrow-left" size={19} />
-            </button>
-            <h2>Chúc mừng!</h2>
-            <p className="local-result-winner">
-              {board.winner === -1
-                ? "Ván đấu hòa!"
-                : board.playerNames?.[board.winner]}
-            </p>
-            <p className="local-result-score">
-              {Math.max(board.scores?.[0] ?? 0, board.scores?.[1] ?? 0)} –{" "}
-              {Math.min(board.scores?.[0] ?? 0, board.scores?.[1] ?? 0)}
-            </p>
-            <div className="match-dialog-actions">
-              <button onClick={onExitLocal}>Thoát</button>
-              <button className="confirm-surrender" onClick={onRematch}>
-                Chơi lại
-              </button>
-            </div>
-          </section>
-        </div>
-      )}
-      {board.mode === "BOT" && board.gameOver && !isAnimating && (
-        <div className="match-dialog-backdrop">
-          <section
-            className="match-dialog bot-result-card has-back-button"
-            role="dialog"
-            aria-modal="true"
-          >
-            <button
-              className="card-back-button"
-              onClick={onExitBot}
-              aria-label="Thoát"
-              title="Thoát"
-            >
-              <Icon name="arrow-left" size={19} />
-            </button>
-            <h2>
-              {board.result === "DRAW"
-                ? "Hoà"
-                : board.result === (playerSlot === 0 ? "P0_WIN" : "P1_WIN")
-                  ? "Chiến thắng"
-                  : "Thất bại"}
-            </h2>
-            <div className="bot-result-score">
-              <div>
-                <small>BẠN</small>
-                <strong>{board.scores?.[playerSlot] ?? 0}</strong>
-              </div>
-              <span aria-hidden="true">–</span>
-              <div>
-                <small>MÁY</small>
-                <strong>{board.scores?.[opponentSlot] ?? 0}</strong>
-              </div>
-            </div>
-            <div className="match-dialog-actions">
-              <button onClick={onExitBot}>Thoát</button>
-              <button className="confirm-surrender" onClick={onRematch}>
-                Chơi lại
-              </button>
-            </div>
-          </section>
-        </div>
-      )}
-      {board.mode === "RANKED" && board.gameOver && !isAnimating && (
-        <div className="match-dialog-backdrop">
-          <section
-            className="match-dialog local-result-card has-back-button"
-            role="dialog"
-            aria-modal="true"
-          >
-            <button
-              className="card-back-button"
-              onClick={() => void onExitRanked()}
-              aria-label="Thoát"
-              title="Thoát"
-            >
-              <Icon name="arrow-left" size={19} />
-            </button>
-            <h2>
-              {board.result === "DRAW"
-                ? "Ván đấu hòa!"
-                : board.result === (playerSlot === 0 ? "P0_WIN" : "P1_WIN")
-                  ? "Bạn chiến thắng!"
-                  : "Bạn đã thua"}
-            </h2>
-            <div className="bot-result-score">
-              <div>
-                <small>{board.playerNames?.[playerSlot] || "Bạn"}</small>
-                <strong>{board.scores?.[playerSlot] ?? 0}</strong>
-              </div>
-              <span aria-hidden="true">–</span>
-              <div>
-                <small>{board.playerNames?.[opponentSlot] || "Đối thủ"}</small>
-                <strong>{board.scores?.[opponentSlot] ?? 0}</strong>
-              </div>
-            </div>
-            {board.endReason === "PASS_LIMIT" && (
-              <p>Bạn đã bỏ lượt hai lần nên thua.</p>
-            )}
-            {board.endReason === "TIMEOUT" && (
-              <p>Hết giờ và không còn nước đi hợp lệ.</p>
-            )}
-            {rematchStatus === "unavailable" || board.rematchUnavailable ? (
-              <>
-                <p>Đối thủ đã rời phòng, không thể tái đấu.</p>
-                <div className="match-dialog-actions">
-                  <button onClick={onExitRanked}>Thoát</button>
-                  <button className="confirm-surrender" disabled>
-                    Tái đấu
-                  </button>
-                </div>
-              </>
-            ) : rematchStatus === "waiting" ? (
-              <>
-                <p>Đang chờ đối thủ đồng ý tái đấu.</p>
-                <div className="match-dialog-actions">
-                  <button onClick={onExitRanked}>Thoát</button>
-                  <button className="confirm-surrender" disabled>
-                    Đang chờ...
-                  </button>
-                </div>
-              </>
-            ) : rematchStatus === "requested" ? (
-              <div className="match-dialog-actions">
-                <button onClick={onExitRanked}>Thoát</button>
-                <button
-                  className="confirm-surrender"
-                  onClick={() => onAction("rematch")}
-                >
-                  Đồng ý tái đấu
-                </button>
-              </div>
-            ) : (
-              <div className="match-dialog-actions">
-                <button onClick={onExitRanked}>Thoát</button>
-                <button
-                  className="confirm-surrender"
-                  onClick={() => onAction("rematch")}
-                >
-                  Tái đấu
-                </button>
-              </div>
-            )}
-          </section>
-        </div>
+      {board.gameOver && !isAnimating && (isSoloGame || isOnlineGame) && (
+        <MatchResult
+          board={board}
+          playerSlot={playerSlot}
+          rematchStatus={rematchStatus}
+          onExit={board.mode === "LOCAL" ? onExitLocal : board.mode === "BOT" ? onExitBot : onExitRanked}
+          onReplay={isSoloGame ? onRematch : () => onAction("rematch")}
+        />
       )}
     </div>
   );

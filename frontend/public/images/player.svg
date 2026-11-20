@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="360" viewBox="0 0 420 360" role="img" aria-label="Khung người chơi không có avatar, giữ chữ Người chơi" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF9E8"/><stop offset=".55" stop-color="#FFF4DD"/><stop offset="1" stop-color="#FDF0D0"/></linearGradient>
+ <linearGradient id="av" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ECF1D1"/><stop offset="1" stop-color="#DDE6B6"/></linearGradient>
+ <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#426F48"/><stop offset=".5" stop-color="#245A36"/><stop offset="1" stop-color="#426F48"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#F4DB9A"/><stop offset="1" stop-color="#DBBE79"/></linearGradient>
+</defs>
+<!-- Entire outside area is transparent; central card is opaque parchment -->
+<rect x="12" y="12" width="396" height="336" rx="35" fill="url(#paper)" stroke="#E4CEA0" stroke-width="2.3"/>
+<rect x="19" y="19" width="382" height="322" rx="29" fill="none" stroke="#FFFDF4" stroke-width="1.5" opacity=".8"/>
+<!-- Empty avatar placeholder (no avatar image/initial) -->
+<path d="M210 43 C225 43 234 54 242 62 C255 65 264 79 264 92 C272 108 264 122 253 132 C248 149 229 156 210 155 C190 156 173 149 165 132 C150 120 150 103 157 91 C155 75 167 64 178 61 C186 50 196 43 210 43Z" fill="url(#av)" stroke="#C5CD94" stroke-width="4"/>
+<path d="M210 51 C224 51 232 61 240 68 C253 74 258 85 257 96 C263 110 256 122 246 128 C239 143 227 148 210 148 C192 148 180 142 173 128 C162 120 158 108 163 96 C162 83 169 73 181 68 C191 56 199 51 210 51Z" fill="none" stroke="#F7F8E9" stroke-width="1.5" opacity=".8"/>
+<!-- Ribbon below avatar -->
+<path d="M130 156H165V187H136L120 196L125 180L118 166Z" fill="#4B7851" stroke="#2F5B39" stroke-width="1.5"/>
+<path d="M290 156H255V187H284L300 196L295 180L302 166Z" fill="#4B7851" stroke="#2F5B39" stroke-width="1.5"/>
+<rect x="145" y="153" width="130" height="37" rx="13" fill="url(#ribbon)" stroke="#2F5735" stroke-width="1.5"/>
+<text x="210" y="177.5" fill="#FFF8E8" text-anchor="middle" font-family="'Be Vietnam Pro','Arial',sans-serif" font-weight="700" font-size="17">Người chơi</text>
+<!-- Decorative clouds at bottom; all other fields intentionally blank -->
+<g fill="none" stroke="#F1C86F" stroke-width="3" opacity=".6" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M40 322 Q58 306 71 318 Q67 301 82 298 Q98 296 102 313 Q115 307 121 320 Q126 329 137 326"/>
+ <path d="M281 326 Q295 314 308 321 Q304 302 321 300 Q338 299 342 314 Q359 308 369 325"/>
+ <path d="M73 319c-5-10 8-17 14-8 5 9-10 15-8 3"/><path d="M326 320c-5-10 8-17 14-8 5 9-10 15-8 3"/>
+</g>
+</svg>

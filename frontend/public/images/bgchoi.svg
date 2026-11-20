@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1490" height="634" viewBox="0 0 1490 634" preserveAspectRatio="none">
+ <defs>
+  <radialGradient id="paper" cx="51%" cy="46%" r="80%"><stop stop-color="#fffaf0"/><stop offset=".7" stop-color="#fff4db"/><stop offset="1" stop-color="#f6e5bf"/></radialGradient>
+  <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#aec18b" stop-opacity="0"/><stop offset="1" stop-color="#a8be80" stop-opacity=".38"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a5b784"/><stop offset=".65" stop-color="#6f9565"/><stop offset="1" stop-color="#486c4d"/></linearGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".36" numOctaves="2" seed="3" stitchTiles="stitch" result="n"/><feColorMatrix in="n" type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".035"/></feComponentTransfer></filter>
+  <g id="cloud" fill="none" stroke="#eabf69" stroke-width="3.4" stroke-linecap="round" opacity=".48"><path d="M0 34 Q20 30 34 19 Q49 8 63 16 Q70 -1 92 4 Q108 8 111 21 Q128 13 143 24 Q151 32 167 30"/><path d="M25 36 Q49 29 58 23 Q64 14 78 19 Q89 24 83 35 Q76 43 67 35 Q62 29 69 26"/><path d="M78 36 Q97 47 118 35 Q129 29 143 34"/></g>
+ </defs>
+ <!-- Square, opaque background -->
+ <rect width="1490" height="634" fill="url(#paper)"/>
+ <rect width="1490" height="634" fill="#ad8f55" filter="url(#grain)" opacity=".37"/>
+ <!-- understated cream watercolor glow -->
+ <ellipse cx="780" cy="290" rx="640" ry="270" fill="#fffdf3" opacity=".27"/>
+ <!-- lower landscape only, leaving large usable central area -->
+ <path d="M0 578 Q95 535 205 555 Q312 573 399 559 Q524 539 615 576 Q720 605 850 578 Q940 557 1038 580 Q1197 616 1323 571 Q1415 542 1490 565 L1490 634 H0Z" fill="url(#mist)"/>
+ <path d="M0 604 Q195 581 315 608 Q438 592 566 619 Q723 598 851 617 Q1000 589 1151 613 Q1310 586 1490 603 V634 H0Z" fill="#c7d3a3" opacity=".22"/>
+ <path d="M0 620 Q175 599 278 624 Q423 613 546 632 Q712 603 879 629 Q1060 612 1227 627 Q1392 603 1490 621 V634 H0Z" fill="#a1b886" opacity=".13"/>
+ <!-- Top-right bamboo: narrow, drooping leaves matched to reference -->
+ <g id="bamboo-corner" opacity=".88">
+ <path d="M1508 -22 Q1464 11 1418 31 Q1368 54 1315 72 Q1275 83 1215 88" fill="none" stroke="#839666" stroke-width="4.2" stroke-linecap="round"/>
+ <path d="M1434 25 Q1420 59 1390 82 M1342 62 Q1334 101 1303 118 M1471 5 Q1463 45 1461 78" fill="none" stroke="#879c6c" stroke-width="2.8" stroke-linecap="round"/>
+ <path d="M1418.0 31.0 Q1398.8 14.2 1345.0 14.0 Q1376.2 28.7 1418.0 31.0Z" fill="#869d70"/>
+ <path d="M1418.0 31.0 Q1398.4 23.8 1360.0 43.0 Q1387.4 44.1 1418.0 31.0Z" fill="#91a976"/>
+ <path d="M1418.0 31.0 Q1401.4 48.4 1394.0 100.0 Q1410.5 70.9 1418.0 31.0Z" fill="#76966b"/>
+ <path d="M1418.0 31.0 Q1413.4 55.2 1435.0 104.0 Q1433.2 69.8 1418.0 31.0Z" fill="#819c6d"/>
+ <path d="M1361.0 55.0 Q1336.0 40.6 1272.0 40.0 Q1311.1 52.7 1361.0 55.0Z" fill="#8ea777"/>
+ <path d="M1361.0 55.0 Q1337.0 52.8 1292.0 79.0 Q1325.0 73.9 1361.0 55.0Z" fill="#8ba678"/>
+ <path d="M1361.0 55.0 Q1341.1 73.9 1325.0 132.0 Q1346.6 99.9 1361.0 55.0Z" fill="#789767"/>
+ <path d="M1361.0 55.0 Q1353.2 80.6 1365.0 139.0 Q1368.6 100.9 1361.0 55.0Z" fill="#809b6d"/>
+ <path d="M1315.0 72.0 Q1293.7 58.4 1238.0 56.0 Q1271.6 68.5 1315.0 72.0Z" fill="#98aa81"/>
+ <path d="M1315.0 72.0 Q1285.9 70.5 1228.0 99.0 Q1268.9 92.6 1315.0 72.0Z" fill="#86a070"/>
+ <path d="M1315.0 72.0 Q1290.8 90.1 1262.0 151.0 Q1290.8 118.8 1315.0 72.0Z" fill="#75956b"/>
+ <path d="M1315.0 72.0 Q1299.2 98.4 1295.0 167.0 Q1309.9 125.5 1315.0 72.0Z" fill="#86a274"/>
+ <path d="M1467.0 5.0 Q1459.8 -12.9 1423.0 -28.0 Q1439.2 -8.4 1467.0 5.0Z" fill="#82996c"/>
+ <path d="M1467.0 5.0 Q1463.0 30.5 1483.0 84.0 Q1481.1 47.4 1467.0 5.0Z" fill="#799368"/>
+ <path d="M1467.0 5.0 Q1473.2 29.4 1514.0 66.0 Q1497.6 34.9 1467.0 5.0Z" fill="#91a779"/>
+ <path d="M1407.0 43.0 Q1391.6 69.1 1385.0 137.0 Q1400.2 95.9 1407.0 43.0Z" fill="#8ca477"/>
+ <path d="M1340.0 66.0 Q1334.7 98.5 1352.0 171.0 Q1352.0 123.1 1340.0 66.0Z" fill="#789567"/>
+ </g>
+ <!-- Delicate floating cloud top right -->
+ <g transform="translate(1130 34) scale(.8)"><use xlink:href="#cloud"/></g>
+ <g transform="translate(1295 10) scale(.42)"><use xlink:href="#cloud"/></g>
+ <!-- faint cloud at lower left -->
+ <g transform="translate(76 521) scale(.68)"><use xlink:href="#cloud"/></g>
+ <!-- no rounded corners, no labels, no UI -->
+</svg>

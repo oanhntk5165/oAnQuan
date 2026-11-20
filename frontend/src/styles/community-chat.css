@@ -1,0 +1,112 @@
+/* =========================================================
+   11) COMMUNITY CHAT / TRÒ CHUYỆN CỘNG ĐỒNG
+   - Nút mở chat, cửa sổ trò chuyện, danh sách tin nhắn và ô soạn nội dung.
+   - Chỉnh tại đây khi cần đổi vị trí, màu sắc hoặc kích thước khung chat cộng đồng.
+   ========================================================= */
+.community-chat { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); z-index: 40; font-family: "Nunito", sans-serif; }
+.community-launcher { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px 21px; border: 5px solid #d79a45; border-radius: 40px; color: #fff5d7; background: linear-gradient(125deg,#517b39,#254f25); box-shadow: inset 0 0 0 2px #f3ca76,0 5px 10px #68411740; font-size: 20px; font-weight: 900; }
+.community-launcher:hover { background: #37672d; }
+.community-unread { position: absolute; right: 2px; top: -4px; width: 15px; height: 15px; border: 3px solid #fff1cc; border-radius: 50%; background: #f78f22; box-shadow: 0 0 0 2px #c88735; }
+.community-window { display: flex; flex-direction: column; width: 380px; height: min(575px, calc(100dvh - 42px)); max-width: calc(100vw - 28px); overflow: hidden; border: 2px solid #b99b51; border-radius: 29px; background: #ffe6b2; box-shadow: 0 5px 9px #69451b40,inset 0 0 0 3px #f4d995; }
+.community-heading { flex-shrink: 0; display: flex; align-items: center; gap: 9px; min-height: 56px; padding: 10px 13px; background: linear-gradient(110deg,#507c3c,#2f5b2f); color: #fff5d4; box-shadow: inset 0 2px 4px #9da56755; }
+.community-heading h2 { font-size: 18px; margin: 0; white-space: nowrap; font-weight: 900; }
+.community-heading > svg { flex-shrink: 0; }
+.community-online { display: flex; align-items: center; gap: 4px; font-size: 12px; white-space: nowrap; margin-left: auto; }
+.community-heading button { display: grid; place-items: center; padding: 0; border: 0; background: none; color: inherit; flex-shrink: 0; }
+.community-paper { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 17px 12px 8px 17px; background: linear-gradient(110deg,#ffe3a98c,#fff0d28c),url('/images/background.svg') center / auto 100%; }
+.community-paper::before, .community-paper::after { content: "❧"; position: absolute; top: -9px; color: #708344; font-size: 39px; line-height: 1; pointer-events: none; }
+.community-paper::before { left: -2px; transform: rotate(-35deg); }
+.community-paper::after { right: -2px; transform: scaleX(-1) rotate(-35deg); }
+.community-messages { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 5px 11px 10px 6px; scrollbar-width: thin; scrollbar-color: #a67c48 #fff4d6; }
+.community-message { width: fit-content; max-width: 100%; margin-bottom: 8px; padding: 7px 12px 5px; border: 1px solid #e4bf7c80; border-radius: 16px; background: #ffe8b6cc; color: #292414; font-size: 16px; line-height: 1.35; overflow-wrap: anywhere; box-shadow: 0 2px 3px #ae7c2b0d; }
+.community-message strong { font-weight: 900; }
+.community-message span { white-space: pre-wrap; }
+.community-message.is-own { margin-left: auto; border-color: #99af6c; background: #e4ecc4e8; }
+.community-message time { display: block; margin-top: 3px; text-align: right; font-size: 10px; color: #796640; }
+.community-empty { padding: 15px 8px; font-size: 14px; color: #7d704e; text-align: center; }
+.community-status, .community-error { flex-shrink: 0; margin: 0 0 8px; font-size: 12px; color: #8b3b25; }
+.community-older { display: block; margin: 0 auto 10px; background: transparent; border: 0; color: #496931; text-decoration: underline; font-size: 12px; }
+.community-compose { display: grid; grid-template-columns: minmax(0,1fr) 53px; gap: 5px 8px; padding-top: 10px; flex-shrink: 0; }
+.community-input-wrap { position: relative; min-width: 0; display: flex; border: 3px ridge #be8a42; border-radius: 10px; background: #fff0d1cc; box-shadow: inset 0 0 0 2px #e3b876,0 1px 4px #95643055; }
+.community-input-wrap input { width: 100%; min-width: 0; padding: 11px 29px 11px 13px; border: 0; border-radius: 8px; background: transparent; color: #33492b; font-size: 16px; }
+.community-input-wrap input::placeholder { color: #8b8c77; }
+.community-input-wrap > svg { position: absolute; right: 3px; bottom: 2px; color: #7f9230; pointer-events: none; }
+.community-send { display: grid; place-items: center; border: 3px ridge #a5a16c; border-radius: 8px; background: linear-gradient(120deg,#62864a,#36572d); color: #fff5d7; box-shadow: 0 2px 3px #74552b44; }
+.community-send:disabled { opacity: .5; cursor: not-allowed; }
+.community-counter { grid-column: 1 / -1; text-align: right; color: #85714b; font-size: 10px; padding-right: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Reserve a real column only while the community window is visible. */
+.app-shell-menu:has(> .community-chat .community-window) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-rows: auto 1fr;
+  column-gap: 24px;
+  align-content: start;
+  padding-inline: max(14px, calc((100vw - 1456 * var(--scene-unit)) / 2));
+}
+.app-shell-menu:has(> .community-chat .community-window) > .menu-header {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.app-shell-menu:has(> .community-chat .community-window) > .authenticated-layout {
+  grid-column: 1;
+  grid-row: 2;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  container-type: inline-size;
+}
+.app-shell-menu:has(> .community-chat .community-window) > .community-chat {
+  position: static;
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  min-width: 0;
+  margin-top: calc(39 * var(--scene-unit));
+  margin-bottom: 22px;
+}
+.app-shell-menu:has(> .community-chat .community-window) .community-window {
+  width: 100%;
+  max-width: none;
+  height: clamp(300px, calc(100dvh - 236 * var(--scene-unit) - 22px), 575px);
+}
+.app-shell-menu:has(> .community-chat .community-window) .mode-choice-grid { gap: clamp(10px, 2cqw, 30px); }
+.app-shell-menu:has(> .community-chat .community-window) .mode-choice-card { padding-inline: clamp(12px, 3cqw, 48px); }
+.app-shell-menu:has(> .community-chat .community-window) .mode-choice-card > strong {
+  font-size: clamp(18px, 3cqw, 40 * var(--scene-unit));
+  white-space: normal;
+  letter-spacing: -.5px;
+}
+.app-shell-menu:has(> .community-chat .community-window) .mode-choice-card > small {
+  font-size: clamp(12px, 1.8cqw, 24 * var(--scene-unit));
+  white-space: normal;
+}
+.app-shell-menu:has(> .community-chat .community-window) .lobby-board-preview {
+  width: min(100%, calc(1100 * var(--scene-unit)));
+  height: auto;
+  aspect-ratio: 1100 / 214;
+}
+.app-shell-menu:has(> .community-chat .community-window) .lobby-tip {
+  width: min(100%, calc(1080 * var(--scene-unit)));
+  gap: clamp(10px, 2cqw, 27px);
+  font-size: clamp(14px, 1.8cqw, 23 * var(--scene-unit));
+}
+@media (max-width: 900px) {
+  .app-shell-menu:has(> .community-chat .community-window) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr; padding-inline: 14px; }
+  .app-shell-menu:has(> .community-chat .community-window) > .community-chat { grid-column: 1; grid-row: 2; margin: 22px 0 0; }
+  .app-shell-menu:has(> .community-chat .community-window) > .authenticated-layout { grid-column: 1; grid-row: 3; }
+  .app-shell-menu:has(> .community-chat .community-window) .community-window { height: min(480px, 65dvh); min-height: 280px; }
+  .app-shell-menu:has(> .community-chat .community-window) .mode-choice-card { padding-inline: 88px 18px; }
+  .app-shell-menu:has(> .community-chat .community-window) .mode-choice-card > strong { font-size: 25px; }
+  .app-shell-menu:has(> .community-chat .community-window) .mode-choice-card > small { font-size: 14px; }
+}
+@media (max-width: 600px) {
+  .community-chat { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); }
+  .community-launcher { font-size: 16px; padding: 10px 15px; border-width: 4px; }
+  .community-window { width: min(380px, calc(100vw - 24px)); height: min(575px, calc(100dvh - 24px)); }
+  .community-heading { gap: 6px; padding-inline: 10px; }
+  .community-heading h2 { font-size: 16px; }
+  .community-online { font-size: 11px; }
+}
+
+

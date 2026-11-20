@@ -1,5 +1,17 @@
 export default function Icon({ name, size = 20 }) {
   const paths = {
+    "people-solid": <><circle cx="12" cy="7" r="4" /><circle cx="4" cy="9" r="3" /><circle cx="20" cy="9" r="3" /><path d="M0 21v-3a5 5 0 0 1 7-4.6V21ZM24 21v-3a5 5 0 0 0-7-4.6V21Z" /><path d="M5 22v-3a7 7 0 0 1 14 0v3Z" /></>,
+    "plus-circle": <><circle cx="12" cy="12" r="9" /><path d="M12 7v10M7 12h10" /></>,
+    info: <><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7h.01" /></>,
+    clock: <><circle cx="12" cy="12" r="9" /><path d="M12 6v6l4 2" /></>,
+    key: <><circle cx="16" cy="8" r="5" /><path d="m12.5 11.5-9 9L2 19l2-2-1-1 3-3 2 1 2-2" /></>,
+    copy: <><rect x="7" y="3" width="14" height="16" rx="2" /><path d="M17 21H5a2 2 0 0 1-2-2V7" /></>,
+    monitor: <><rect x="3" y="3" width="18" height="14" rx="2" /><path d="M12 17v4M8 21h8" /></>,
+    lock: <><rect x="4" y="10" width="16" height="12" rx="2" /><path d="M8 10V6a4 4 0 0 1 8 0v4M12 15v3" /></>,
+    eye: <><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></>,
+    "eye-off": <><path d="m3 3 18 18M10 5a12 12 0 0 1 12 7l-3 4M6 6a18 18 0 0 0-4 6s4 7 10 7c2 0 4-.7 5-2M10 10a3 3 0 0 0 4 4" /></>,
+    "arrow-right": <><path d="M3 12h18m-9-9 9 9-9 9" /></>,
+    chat: <><path d="M21 11a9 8 0 0 1-9 8H7l-5 3 2-6a8 8 0 1 1 17-5Z" /><path d="M8 11h.01M12 11h.01M16 11h.01" /></>,
     leaf: <><path d="M20 4c-8 0-14 4-14 11a5 5 0 0 0 5 5c7 0 11-6 9-16Z" /><path d="M4 21c3-5 7-8 12-11" /></>,
     home: <><path d="m3 10 9-7 9 7" /><path d="M5 9v11h14V9M9 20v-6h6v6" /></>,
     history: <><path d="M3 12a9 9 0 1 0 3-6.7L3 8" /><path d="M3 3v5h5m4-1v5l3 2" /></>,

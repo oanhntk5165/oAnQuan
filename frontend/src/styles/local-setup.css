@@ -1,0 +1,48 @@
+.local-setup-backdrop { padding: 24px; overflow: hidden; background: #343a23a6; backdrop-filter: blur(7px); }
+.match-dialog.local-setup-card {
+  --local-unit: min(.68px, calc((100vw - 64px) / 1500), calc((100dvh - 80px) / 1180));
+  width: calc(1280 * var(--local-unit));
+  max-height: calc(100dvh - 48px);
+  overflow: hidden;
+  padding: calc(46 * var(--local-unit)) calc(48 * var(--local-unit)) calc(54 * var(--local-unit));
+  border: max(3px, calc(7 * var(--local-unit))) solid #608358;
+  border-bottom-color: #305b3b;
+  border-radius: calc(64 * var(--local-unit));
+  background: #fff5df url('/images/bgchoi.svg') center / 100% 100% no-repeat;
+  box-shadow: 0 18px 45px #27351f55, inset 0 0 0 2px #fff6d9;
+  color: #285631;
+  font-family: "Nunito", sans-serif;
+}
+.local-setup-card .card-back-button { top: calc(34 * var(--local-unit)); left: calc(44 * var(--local-unit)); width: calc(92 * var(--local-unit)); height: calc(80 * var(--local-unit)); border: 3px solid #c1b96c; border-radius: calc(28 * var(--local-unit)); background: linear-gradient(130deg, #fff4c9, #f6e3a0); color: #285631; }
+.local-setup-card .card-back-button svg { width: 50%; height: 50%; }
+.local-setup-card > h2 { position: relative; display: flex; align-items: center; justify-content: center; width: fit-content; max-width: 76%; margin: 0 auto calc(64 * var(--local-unit)); color: #205b30; font: 900 calc(64 * var(--local-unit))/1.4 "Nunito", sans-serif; }
+.local-setup-card > h2::after { content: ""; position: absolute; left: -8%; right: 4%; bottom: 0; height: calc(7 * var(--local-unit)); border-radius: 99px; background: #f3d78b66; pointer-events: none; }
+.local-setup-card > h2 img { width: calc(120 * var(--local-unit)); height: calc(60 * var(--local-unit)); object-fit: contain; flex-shrink: 0; }
+.local-setup-card .local-setup-player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(26 * var(--local-unit)); }
+.local-setup-card .local-setup-player-card { grid-column: auto; grid-row: auto; min-width: 0; gap: calc(28 * var(--local-unit)); padding: calc(34 * var(--local-unit)); border: 2px solid #e9d7ab; border-radius: calc(42 * var(--local-unit)); background: #fff3d43d; }
+.local-setup-card .local-setup-player-card strong { display: flex; align-items: center; gap: calc(16 * var(--local-unit)); min-width: 0; min-height: calc(48 * var(--local-unit)); color: #205b30; font: 900 calc(30 * var(--local-unit))/1.4 "Nunito", sans-serif; white-space: normal; }
+.local-setup-player-card strong span { min-width: 0; overflow-wrap: break-word; }
+.local-setup-card .local-setup-player-card strong svg { flex: 0 0 calc(48 * var(--local-unit)); width: calc(48 * var(--local-unit)); height: calc(48 * var(--local-unit)); overflow: visible; color: #9ca953; fill: currentColor; stroke: #fff5df; stroke-width: .7; }
+.local-setup-card .local-setup-player-card input { min-width: 0; width: 100%; box-sizing: border-box; }
+.local-setup-card .local-setup-player-card input { height: calc(92 * var(--local-unit)); min-height: 44px; padding: 0 calc(34 * var(--local-unit)); border: 2px solid #d6d9bf; border-radius: calc(30 * var(--local-unit)); background: #fffefdde; color: #59615b; font: 600 calc(36 * var(--local-unit)) "Nunito", sans-serif; }
+.local-setup-card .local-first-turn { margin-top: calc(46 * var(--local-unit)); padding: calc(22 * var(--local-unit)) calc(62 * var(--local-unit)) calc(38 * var(--local-unit)); border: 2px solid #d9dabc; border-radius: calc(42 * var(--local-unit)); background: #e4e6c9b0; }
+.local-setup-card .local-first-turn h3 { margin: 0 0 calc(24 * var(--local-unit)); color: #285631; font: 900 calc(46 * var(--local-unit))/1.35 "Nunito", sans-serif; }
+.local-setup-card .local-first-turn-options { gap: calc(28 * var(--local-unit)); }
+.local-setup-card .local-first-turn-options button { min-height: calc(96 * var(--local-unit)); padding: 10px; border: 2px solid #ddd9bb; border-radius: calc(36 * var(--local-unit)); background: #fff6e4; color: #285631; font: 900 calc(36 * var(--local-unit))/1.3 "Nunito", sans-serif; }
+.local-setup-card .local-first-turn-options button.is-selected { border-color: #9aaf74; background: #fff0c7; box-shadow: inset 0 0 0 1px #b6c68d; }
+.local-setup-card .local-start-game { justify-content: center; width: 54%; min-height: calc(112 * var(--local-unit)); margin: calc(44 * var(--local-unit)) auto 0; padding: 12px; border: 3px solid #83a577; border-bottom-color: #305b3b; border-radius: calc(48 * var(--local-unit)); background: linear-gradient(120deg, #456c43, #285731); color: #fff8e0; font: 900 calc(44 * var(--local-unit))/1.3 "Nunito", sans-serif; box-shadow: inset 0 2px 2px #ffffff25; }
+.local-setup-card button:hover { filter: brightness(1.05); }
+.local-setup-card .local-first-turn-options button:hover { background: #f3e3a6; border-color: #8fa565; filter: none; }
+.local-setup-card button:focus-visible, .local-setup-card input:focus-visible { outline: 3px solid #a47a26; outline-offset: 3px; }
+@media (max-width: 600px) {
+  .local-setup-backdrop { padding: 12px; }
+  .match-dialog.local-setup-card { --local-unit: min(.45px, calc((100dvh - 32px) / 1350)); width: min(420px, 100%); max-height: calc(100dvh - 24px); padding: calc(132 * var(--local-unit)) 16px calc(40 * var(--local-unit)); border-radius: 28px; }
+  .local-setup-card .card-back-button { top: 16px; left: 18px; }
+  .local-setup-card > h2 { max-width: 100%; margin-bottom: calc(36 * var(--local-unit)); font-size: calc(60 * var(--local-unit)); }
+  .local-setup-card .local-setup-player-grid { grid-template-columns: 1fr; }
+  .local-setup-card .local-setup-player-card strong { font-size: max(13px, calc(36 * var(--local-unit))); }
+  .local-setup-card .local-first-turn { padding: calc(28 * var(--local-unit)) 12px; margin-top: calc(32 * var(--local-unit)); }
+  .local-setup-card .local-first-turn-options { gap: 10px; }
+  .local-setup-card .local-first-turn-options button { font-size: max(13px, calc(34 * var(--local-unit))); }
+  .local-setup-card .local-start-game { width: 80%; }
+}

@@ -1,0 +1,74 @@
+/* =========================================================
+   15) ONLINE / ĐẤU HẠNG, TẠO PHÒNG, VÀO PHÒNG
+   - Khung bgchoi, thẻ player, mã phòng và trạng thái chờ đối thủ.
+   - Ghi đè các hộp thoại online trong lobby.css; giữ riêng màn chơi tại máy.
+   ========================================================= */
+.online-backdrop { padding: 24px; background: #343a23a6; backdrop-filter: blur(7px); }
+.online-card { position: relative; width: min(1156px, 100%); max-height: calc(100dvh - 48px); overflow-y: auto; padding: 24px 50px 52px; border: 5px solid #608358; border-bottom-color: #305b3b; border-radius: 42px; background: #fff5df url('/images/bgchoi.svg') center / 100% 100% no-repeat; color: #285631; box-shadow: 0 15px 35px #27351f55, inset 0 0 0 2px #fff6d9; font-family: "Nunito", sans-serif; }
+.online-card .card-back-button { top: 18px; left: 28px; width: 60px; height: 50px; border: 2px solid #c1b96c; border-radius: 18px; background: linear-gradient(130deg, #fff4c9, #f6e9b3); box-shadow: 0 2px 2px #7a6a2333; }
+.online-card .card-back-button svg { width: 29px; height: 29px; }
+.online-card .online-title { position: relative; display: flex; align-items: center; gap: 20px; width: fit-content; margin: 0 0 28px 80px; color: #285631; font: 900 42px/1.3 "Nunito", sans-serif; text-align: left; }
+.online-title::after { content: ""; position: absolute; bottom: 8px; left: -20px; right: -20px; height: 5px; border-radius: 5px; background: #f3d78b80; pointer-events: none; }
+.online-title .online-title-lotus { display: block; flex-shrink: 0; width: 84px; height: 36px; margin-left: -20px; object-fit: contain; pointer-events: none; }
+.online-card .ranked-dashboard { display: grid; grid-template-columns: minmax(0, 366fr) minmax(0, 638fr); gap: 30px; margin: 0; }
+.online-card .rank-profile-card { position: relative; display: block; min-height: 330px; padding: 0; border: 0; border-radius: 0; background: url('/images/player.svg') center / 100% 100% no-repeat; }
+.online-card .rank-avatar { position: absolute; top: 12%; left: 36%; width: 28%; height: 31%; border: 0; border-radius: 0; background: none; color: #285631; font: 900 52px/1 "Nunito", sans-serif; }
+.online-card .rank-profile-card h2 { position: absolute; top: 57%; left: 10%; width: 80%; margin: 0; color: #285631; font: 900 36px/1.2 "Nunito", sans-serif; overflow-wrap: anywhere; }
+.online-card .rank-profile-card > strong { position: absolute; top: 72%; left: 5%; width: 90%; font-size: 23px; font-weight: 600; }
+.online-card .rank-badge { position: absolute; top: 82%; left: 50%; transform: translateX(-50%); margin: 0; padding: 7px 17px; white-space: nowrap; border: 1px solid #f4cd69; background: #ffe39d; color: #3d522b; font-size: 20px; font-weight: 900; border-radius: 22px; }
+.online-card .rank-play-card { padding: 22px 30px; border: 2px solid #f2deb0; border-radius: 34px; background: #fff8e533; }
+.online-card .rank-play-card h2 { display: flex; align-items: center; gap: 18px; margin: 0 0 22px; font: 900 34px/1.3 "Nunito", sans-serif; }
+.rank-play-card h2 svg { color: #95a54c; flex-shrink: 0; }
+.online-card .rank-play-card > .rank-find-opponent { display: flex; gap: 13px; min-height: 65px; border: 2px solid #91aa78; border-radius: 25px; background: linear-gradient(120deg,#456c43,#315732); color: #fff9e8; font: 900 29px "Nunito", sans-serif; box-shadow: inset 0 2px 2px #ffffff25, 0 2px 2px #59703525; }
+.online-card .rank-room-actions { gap: 16px; margin-top: 16px; }
+.online-card .rank-room-actions button { display: flex; justify-content: center; align-items: center; gap: 12px; min-height: 64px; padding: 10px; border-radius: 23px; font: 900 22px "Nunito", sans-serif; }
+.online-card .rank-create-room { color: #6c571c; border: 2px solid #f4c760; background: linear-gradient(120deg,#fff1bc,#ffe4a1); }
+.online-card .rank-join-room { color: #285631; border: 2px solid #8dad79; background: linear-gradient(120deg,#dce6bf,#e6e9cb); }
+.online-card .rank-rules { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin-top: 22px; padding-top: 20px; border-color: #eddfbc; color: #33472b; font: 600 15px/1.5 "Nunito", sans-serif; }
+.online-card .rank-rules svg { flex-shrink: 0; color: #8c691e; }
+.online-card .queue-note { margin-top: 8px; color: #526c38; }
+.online-card.online-room-card { width: min(760px,100%); min-height: 385px; padding: 22px 50px 26px; border-width: 4px; border-radius: 37px; }
+.online-room-card .online-title { margin-bottom: 26px; margin-left: 64px; font-size: 34px; }
+.online-room-card .card-back-button { width: 55px; height: 47px; left: 25px; }
+.online-room-card .online-code-label { display: block; margin: 0 0 7px; color: #285631; font: 900 20px "Nunito", sans-serif; }
+.online-code-input { display: flex; align-items: center; gap: 18px; min-height: 70px; margin-top: 7px; padding: 0 25px; border: 2px solid #648660; border-radius: 26px; background: #fff9e866; }
+.online-room-card .online-code-input input { min-width: 0; min-height: 64px; padding: 0; border: 0; background: transparent; font: 700 22px "Nunito", sans-serif; outline-offset: 0; }
+.online-room-card .online-code-input input:focus { outline: none; box-shadow: none; }
+.online-code-input svg { flex-shrink: 0; color: #466e41; }
+.online-room-code { position: relative; border: 2px solid #b8c9a1; border-radius: 25px; background: #f4efd977; }
+.online-room-card .room-code-display { padding: 8px 58px; background: none; color: #285631; font: 900 40px/1.3 "Nunito", sans-serif; letter-spacing: 10px; user-select: all; overflow-wrap: anywhere; }
+.room-copy-button { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); display: grid; place-items: center; padding: 4px; border: 0; background: transparent; color: #285631; }
+.online-room-card .room-player-slots { gap: 15px; margin: 15px 0; }
+.online-room-card .room-player-slots > span { display: flex; align-items: center; gap: 14px; padding: 14px 24px; border: 2px solid #e3dbb8; border-radius: 22px; color: #285631; font: 600 18px "Nunito", sans-serif; overflow-wrap: anywhere; text-align: left; }
+.room-player-slots svg { flex-shrink: 0; }
+.room-wait-spinner { flex-shrink: 0; width: 22px; height: 22px; border: 4px dotted #a7b46a; border-radius: 50%; animation: room-wait-spin 2s linear infinite; }
+@keyframes room-wait-spin { to { transform: rotate(360deg); } }
+.online-room-expiry { display: flex; align-items: center; gap: 12px; color: #285631; font-size: 18px; }
+.room-copy-status { display: block; font-size: 13px; }
+.online-room-card .match-dialog-actions { gap: 20px; justify-content: flex-end; margin-top: 24px; }
+.online-room-card .match-dialog-actions button { height: 60px; padding: 0 30px; border: 2px solid #cdd19d; border-radius: 22px; background: linear-gradient(130deg,#e3e5b1,#edebc2); color: #285631; font: 900 21px "Nunito", sans-serif; }
+.online-room-card .match-dialog-actions .confirm-surrender { border-color: #65845a; background: linear-gradient(130deg,#456d40,#2c5330); color: #fff9e8; }
+.online-room-card .match-dialog-actions button:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 800px) {
+  .online-card { padding: 22px 24px 30px; border-radius: 28px; }
+  .online-card .online-title { font-size: 30px; margin-left: 70px; }
+  .online-card .ranked-dashboard { gap: 14px; grid-template-columns: 1fr; }
+  .online-card .rank-profile-card { width: min(366px,100%); margin: auto; }
+  .online-card .rank-play-card { padding: 20px; }
+  .online-card .rank-play-card h2 { font-size: 27px; }
+  .online-card .rank-room-actions button { font-size: 17px; }
+  .online-card.online-room-card { padding: 22px 24px 26px; }
+  .online-room-card .room-player-slots > span { padding: 12px; font-size: 15px; }
+}
+@media (max-width: 480px) {
+  .online-backdrop { padding: 12px; }
+  .online-card { max-height: calc(100dvh - 24px); padding-inline: 14px; }
+  .online-card .online-title { font-size: 25px; gap: 8px; }
+  .online-title .online-title-lotus { width: 70px; height: 30px; margin-left: -8px; }
+  .online-card .rank-room-actions { grid-template-columns: 1fr; }
+  .online-room-card .room-player-slots { grid-template-columns: 1fr; }
+  .online-room-card .room-code-display { font-size: 28px; letter-spacing: 5px; padding-left: 15px; }
+  .online-room-card .match-dialog-actions { gap: 10px; }
+  .online-room-card .match-dialog-actions button { padding-inline: 16px; font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .room-wait-spinner { animation: none; } }

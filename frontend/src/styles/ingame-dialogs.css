@@ -1,0 +1,94 @@
+/* In-match dialogs share the online lobby's paper and lotus decoration. */
+.match-dialog.ingame-dialog {
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: 76px 30px 32px;
+  border: 3px solid #608358;
+  border-bottom-color: #305b3b;
+  border-radius: 30px;
+  background: #fff5df url('/images/bgchoi.svg') center / 100% 100% no-repeat;
+  box-shadow: 0 18px 48px #27351f55, inset 0 0 0 2px #fff6d9;
+  color: #285631;
+  font-family: "Nunito", sans-serif;
+}
+.ingame-dialog .card-back-button {
+  top: 18px;
+  left: 24px;
+  width: 46px;
+  height: 40px;
+  border: 2px solid #c1b96c;
+  border-radius: 14px;
+  background: linear-gradient(130deg, #fff4c9, #f6e9b3);
+  box-shadow: 0 2px 2px #7a6a2333;
+  color: #285631;
+}
+.ingame-dialog .card-back-button svg { width: 24px; height: 24px; }
+.ingame-dialog h2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 24px;
+  color: #285631;
+  font: 900 28px/1.3 "Nunito", sans-serif;
+}
+.ingame-dialog h2::before {
+  content: "";
+  position: absolute;
+  bottom: 1px;
+  left: -8px;
+  right: 8px;
+  height: 4px;
+  border-radius: 4px;
+  background: #f3d78b80;
+  pointer-events: none;
+}
+.ingame-dialog h2::after {
+  content: "";
+  flex: 0 0 70px;
+  height: 32px;
+  background: url('/images/sen.svg') center / contain no-repeat;
+  pointer-events: none;
+}
+.ingame-dialog p { margin: 0 0 14px; color: #526449; font-size: 16px; line-height: 1.75; }
+.ingame-dialog .match-dialog-actions { flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.ingame-dialog .match-dialog-actions button,
+.ingame-dialog .bot-pause-actions button,
+.ingame-dialog .bot-continue-button {
+  min-height: 50px;
+  padding: 12px 22px;
+  border: 2px solid #cdd19d;
+  border-radius: 18px;
+  background: linear-gradient(130deg, #e3e5b1, #edebc2);
+  color: #285631;
+  font: 900 17px/1.3 "Nunito", sans-serif;
+  box-shadow: inset 0 1px 1px #ffffff40, 0 2px 2px #59703515;
+}
+.ingame-dialog .bot-continue-button {
+  border-color: #91aa78;
+  background: linear-gradient(120deg, #456c43, #315732);
+  color: #fff9e8;
+}
+.ingame-dialog .bot-continue-button { min-height: 58px; margin-top: 0; }
+.ingame-dialog .bot-pause-actions { gap: 12px; margin-top: 12px; }
+.ingame-dialog .bot-pause-actions .confirm-surrender,
+.ingame-dialog .match-dialog-actions .confirm-surrender,
+.ingame-dialog .match-dialog-actions .ingame-primary-action {
+  border-color: #a34743;
+  background: linear-gradient(130deg, #b9514b, #963b38);
+  color: #fff9e8;
+}
+.ingame-dialog button:hover:not(:disabled) { filter: brightness(1.06); }
+.ingame-dialog button:focus-visible { outline: 3px solid #a47a26; outline-offset: 3px; }
+.ingame-dialog button:disabled { opacity: .58; cursor: wait; }
+@media (max-width: 480px) {
+  .match-dialog.ingame-dialog { padding: 72px 20px 26px; border-radius: 24px; }
+  .ingame-dialog h2 { font-size: 24px; gap: 0; }
+  .ingame-dialog h2::after { flex-basis: 50px; height: 26px; }
+  .ingame-dialog p { font-size: 15px; }
+  .ingame-dialog .match-dialog-actions button,
+  .ingame-dialog .bot-pause-actions button { padding-inline: 16px; font-size: 16px; }
+}

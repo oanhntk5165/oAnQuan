@@ -2,6 +2,7 @@ package com.ltm.oanquan.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ltm.oanquan.dao.MatchDao;
+import com.ltm.oanquan.dao.CommunityChatDao;
 import com.ltm.oanquan.dao.UserDao;
 
 import java.util.Set;
@@ -17,6 +18,13 @@ public final class TcpGameServer implements AutoCloseable {
     private final SessionRegistry sessions = new SessionRegistry();
     private final Set<ClientHandler> activeClients = ConcurrentHashMap.newKeySet();
     private final GameService gameService;
+    private final CommunityChatService communityChat = new CommunityChatService(new CommunityChatDao(), message -> {
+        for (ClientHandler client : activeClients) {
+            if (client.currentUser() == null) continue;
+            try { client.sendEvent("community_message", message); }
+            catch (RuntimeException ignored) { /* A disconnected recipient must not block others. */ }
+        }
+    });
     private final AtomicBoolean closed = new AtomicBoolean();
 
     public TcpGameServer() {
@@ -29,7 +37,7 @@ public final class TcpGameServer implements AutoCloseable {
 
     @Override
     public void close() {
-        if (closed.compareAndSet(false, true)) gameService.close();
+        if (closed.compareAndSet(false, true)) { gameService.close(); communityChat.close(); }
     }
 
     AccountService taiKhoan() { return taiKhoan; }
@@ -37,6 +45,7 @@ public final class TcpGameServer implements AutoCloseable {
     MatchDao matchDao() { return matchDao; }
     SessionRegistry sessions() { return sessions; }
     GameService gameService() { return gameService; }
+    CommunityChatService communityChat() { return communityChat; }
     void registerClient(ClientHandler client) { activeClients.add(client); }
     void unregisterClient(ClientHandler client) { activeClients.remove(client); }
 
