@@ -73,8 +73,11 @@
 .guide-step-card { position: relative; min-height: 0; padding: 14px 16px; border: 1px solid var(--card-border); border-radius: 15px; background: var(--card-surface); color: var(--forest); }
 .guide-step-number { color: #c58d1d; font: 900 12px "Nunito",sans-serif; letter-spacing: 1px; }
 .guide-step-card h2 { margin: 11px 0 0; }
-.guide-note { margin-top: 15px; padding: 16px 19px; border-left: 4px solid var(--sunshine); border-radius: 10px; background: var(--card-surface-warm); color: #705322; }
+.guide-notes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+.guide-note { margin-top: 0; padding: 16px 19px; border-left: 4px solid var(--sunshine); border-radius: 10px; background: var(--card-surface-warm); color: #705322; }
 .guide-note p { color: #806f4e; }
+.guide-note.guide-online-note { background: var(--card-surface-soft); border-left-color: var(--forest-light); color: var(--forest); }
+.guide-note.guide-online-note p { color: #263d2e; }
 
 .subpage-header { display: flex; align-items: center; gap: 13px; margin-bottom: 24px; }
 .subpage-header h1 { margin: 0; color: var(--forest); font: 900 clamp(28px,4vw,40px) "Nunito",sans-serif; letter-spacing: -1px; }

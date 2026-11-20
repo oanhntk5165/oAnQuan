@@ -23,26 +23,46 @@
 .result-back { position: absolute; top: 3%; left: 2%; display: grid; place-items: center; width: 7%; height: 12%; padding: 0; border: 2px solid #efb433; border-radius: 30%; background: linear-gradient(#fff9d8, #ffe18d); color: #195c2b; box-shadow: inset 0 2px 0 #fffef2, 0 3px 2px #a87d3880; }
 .result-back svg { width: 60%; height: 60%; }
 .result-scoreboard { position: absolute; top: 66%; left: 16%; width: 68%; height: 14%; display: grid; grid-template-columns: 1.5fr 1fr .35fr 1fr 1.5fr; align-items: center; gap: 2%; padding: 0 2.6%; border: 2px solid #ffc548; border-radius: 999px; background: linear-gradient(#fffcf0, #fff3cf); box-shadow: inset 0 2px 0 white, 0 4px 3px #8d744855; text-align: center; }
-.result-player { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 4% 8%; border: 2px solid #b1d36b; border-radius: 999px; background: linear-gradient(#edf4c5, #e1efb0); font-size: 2.6cqw; font-weight: 900; }
+.result-player { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 4% 5%; border: 2px solid #b1d36b; border-radius: 999px; background: linear-gradient(#edf4c5, #e1efb0); font-size: 1.65cqw; font-weight: 900; }
+.result-player-wrap { position: relative; min-width: 0; }
+/* The crown artwork already tilts left and has transparent margins. */
+.result-crown { position: absolute; z-index: 1; left: -26%; bottom: 100%; width: 64%; height: auto; transform: translateY(28%); pointer-events: none; }
+.result-lose .result-crown { left: auto; right: -26%; transform: translateY(28%) scaleX(-1); }
 .result-scoreboard strong { font-size: 4.6cqw; line-height: 1; font-weight: 900; }
 .result-score-divider { color: #f5a000; font: 900 4.5cqw/1 "Nunito", sans-serif; }
 .result-actions { position: absolute; top: 84%; left: 23%; width: 54%; height: 11%; display: grid; grid-template-columns: 1fr 1fr; gap: 8%; }
 .result-actions button { display: flex; justify-content: center; align-items: center; gap: 6%; min-width: 0; padding: 0 5%; border: 2px solid #efa921; border-radius: 999px; background: linear-gradient(#fff5cd, #ffe08a); color: #195c2b; font: 900 2.8cqw/1.2 "Nunito", sans-serif; box-shadow: inset 0 2px 0 #ffffe9, 0 4px 2px #9d783e66; }
-.result-actions .result-replay { border-color: #68ad56; border-bottom-color: #23682b; background: linear-gradient(#489d40, #17622c); color: #fffbed; box-shadow: inset 0 2px 0 #a3d983, 0 4px 2px #386a3866; }
 .match-result button:hover:not(:disabled) { filter: brightness(1.07); }
 .match-result button:focus-visible { outline: 3px solid #a06417; outline-offset: 3px; }
 .match-result button:disabled { opacity: .65; cursor: not-allowed; }
 .result-notice { position: absolute; bottom: .4%; left: 10%; width: 80%; margin: 0; text-align: center; color: #254e2c; font-size: 1.4cqw; font-weight: 800; }
 .result-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.local-result-backdrop { background: #fffaf0d9; }
+.result-local { border-color: #126632; aspect-ratio: 1540 / 755; }
+.result-local .result-art > img { object-fit: fill; }
+.result-local h2 { top: 2.5%; left: 20%; right: 20%; font-size: 4.4cqw; text-shadow: 0 2px 0 #e8b54c, 0 0 2px #edc15b; }
+.local-winner-card { position: absolute; top: 64%; left: 23%; width: 54%; height: 21%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 5%; padding: .7% 10%; border: .2cqw solid #ffc635; border-bottom-color: #ed9c13; border-radius: 6cqw; background: linear-gradient(#fffcf0, #fff0ce); box-shadow: inset 0 0 0 .2cqw #fffefa, 0 .45cqw .4cqw #9d692a44; }
+.local-winner-name { position: relative; z-index: 1; width: 100%; padding: .3cqw .8cqw; border: .2cqw solid #b1d34d; border-radius: 999px; background: linear-gradient(#edf8bb, #e2efa7); color: #075621; font: 900 2.8cqw/1.2 "Nunito", sans-serif; text-align: center; overflow-wrap: anywhere; }
+.local-winner-score { padding: .15cqw 2.8cqw; border: .2cqw solid #ffbe22; border-bottom-color: #e99400; border-radius: 999px; background: linear-gradient(#fff7d8, #ffe59c); color: #075621; font: 900 2.4cqw/1.2 "Nunito", sans-serif; white-space: nowrap; }
+.local-winner-crown { position: absolute; top: -40%; left: 44%; width: 12%; transform: rotate(20deg); }
+.local-result-laurel { position: absolute; bottom: 8%; width: 15%; height: 70%; }
+.local-result-laurel.left { left: 9%; }
+.local-result-laurel.right { right: 9%; transform: scaleX(-1); }
+.result-local .result-actions { top: 87%; left: 24.5%; width: 51%; height: 11%; }
+.result-local .result-actions button { font-size: 2.6cqw; }
+.result-local .result-actions svg { width: 3cqw; height: 3cqw; }
+.result-local .is-draw .local-winner-name { font-size: 2.6cqw; }
 @media (max-width: 600px) {
   .result-backdrop { padding: 10px; }
   .match-result { border-width: 3px; border-radius: 22px; width: min(100%, calc((100dvh - 24px) * 1.6)); aspect-ratio: 1.6; }
   .match-result h2 { top: 3%; font-size: 4.4cqw; left: 15%; right: 9%; }
   .result-back { width: 10%; height: 10%; }
   .result-scoreboard { left: 5%; width: 90%; }
-  .result-player { font-size: 3.4cqw; }
+  .result-player { font-size: 2.2cqw; }
   .result-scoreboard strong { font-size: 7cqw; }
   .result-actions { left: 12%; width: 76%; }
   .result-actions button { font-size: 4cqw; }
   .result-notice { font-size: 2.3cqw; }
+  .result-local { aspect-ratio: 1540 / 755; }
+  .result-local h2 { left: 20%; right: 20%; font-size: 4.4cqw; }
 }
