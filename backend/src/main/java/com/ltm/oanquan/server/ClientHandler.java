@@ -110,9 +110,9 @@ final class ClientHandler {
             }
             case "online_count" -> Map.of("count", server.onlineUserCount());
             case "logout" -> dangXuat();
-            case "create_room" -> server.gameService().taoPhong(nguoiDung(request), this);
+            case "create_room" -> server.gameService().taoPhong(nguoiDungMoi(request), this);
             case "join_room" -> server.gameService().thamGiaPhong(
-                    nguoiDung(request), this, batBuocChuoi(request, "code"));
+                    nguoiDungMoi(request), this, batBuocChuoi(request, "code"));
             case "start_room" -> server.gameService().batDauPhong(
                     nguoiDung(request), this, batBuocChuoi(request, "code"));
             case "create_bot" -> server.gameService().taoTranBot(
