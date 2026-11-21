@@ -109,5 +109,14 @@ export function passLocalTurn(state) {
 }
 
 export function timeoutLocalTurn(state) {
-  return passLocalTurn(state);
+  if (state.gameOver) return state;
+  const start = firstPit(state.turn);
+  const legalPits = Array.from({ length: 5 }, (_, offset) => start + offset)
+    .filter((pit) => state.dan[pit] > 0);
+  if (!legalPits.length) return finish(state, state.turn);
+  const pit = legalPits[Math.floor(Math.random() * legalPits.length)];
+  const direction = Math.random() < 0.5 ? -1 : 1;
+  const next = playLocalMove(state, pit, direction);
+  if (next.passCounts) next.passCounts = [0, 0];
+  return next;
 }

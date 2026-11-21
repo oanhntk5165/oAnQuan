@@ -91,7 +91,9 @@ class GameServicePassTest {
             setState(room, GameState.initial(1));
             game.diChuyen(user1, player1, 7, 1);
             setState(room, GameState.initial(0));
+            setConsecutivePasses(room, 1);
             processTimeout(game, room, 0);
+            assertEquals(0, getConsecutivePasses(room));
 
             verify(matchDao).ghiNuoc(eq(42L), eq(3), eq(0), eq("AUTO_MOVE"),
                     anyInt(), anyInt(), anyInt(), anyInt(), anyString(), isNull());
@@ -293,6 +295,18 @@ class GameServicePassTest {
         Field turnClockPausedField = room.getClass().getDeclaredField("turnClockPaused");
         turnClockPausedField.setAccessible(true);
         turnClockPausedField.setBoolean(room, false);
+    }
+
+    private void setConsecutivePasses(Object room, int count) throws Exception {
+        Field field = room.getClass().getDeclaredField("consecutivePasses");
+        field.setAccessible(true);
+        field.setInt(room, count);
+    }
+
+    private int getConsecutivePasses(Object room) throws Exception {
+        Field field = room.getClass().getDeclaredField("consecutivePasses");
+        field.setAccessible(true);
+        return field.getInt(room);
     }
 
     private void processTimeout(GameService game, Object room, int slot) throws Exception {

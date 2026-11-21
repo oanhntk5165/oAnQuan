@@ -749,6 +749,7 @@ final class GameService implements AutoCloseable {
         room.usedMs = nextUsed;
         room.moveNo = nextMoveNo;
         room.timeoutCounts[slot] = timeoutCount;
+        room.consecutivePasses = 0;
         if (lost) {
             room.completion = completion;
             ketThucTrongPhong(room, completion);

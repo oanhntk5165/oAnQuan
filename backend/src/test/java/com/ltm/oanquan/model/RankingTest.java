@@ -33,6 +33,8 @@ class RankingTest {
                     GameState.Outcome.P0_WIN, 0));
             assertEquals(draws[tier], Ranking.thayDoiDiem(points[tier],
                     GameState.Outcome.DRAW, 0));
+            assertEquals(draws[tier], Ranking.thayDoiDiem(points[tier],
+                    GameState.Outcome.DRAW, 1));
             assertEquals(losses[tier], Ranking.thayDoiDiem(points[tier],
                     GameState.Outcome.P1_WIN, 0));
         }

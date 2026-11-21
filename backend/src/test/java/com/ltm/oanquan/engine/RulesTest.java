@@ -152,6 +152,14 @@ class RulesTest {
         assertThrows(IllegalStateException.class, s::passTurn);
     }
 
+    @Test
+    void equalScoresProduceDrawOutcome() {
+        GameState s = base().withScore(0, 10).withScore(1, 10);
+        s.finish(-1);
+        assertTrue(s.isOver());
+        assertEquals(GameState.Outcome.DRAW, s.outcome());
+    }
+
     /** Chơi ngẫu nhiên nhiều ván: tổng giá trị luôn là 70 và không phát sinh lỗi. */
     @Test
     void randomGamesConserveTotalValue() {
