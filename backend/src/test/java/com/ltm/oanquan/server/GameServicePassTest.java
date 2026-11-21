@@ -114,6 +114,41 @@ class GameServicePassTest {
     }
 
     @Test
+    void secondTimeoutForfeitsInsteadOfMakingAnotherAutoMove() throws Exception {
+        ObjectMapper json = new ObjectMapper();
+        MatchDao matchDao = mock(MatchDao.class);
+        when(matchDao.taoVan(1L, 2L, "RANKED", 20_000)).thenReturn(42L);
+        TcpGameServer clientRegistry = new TcpGameServer(json, 20_000, 45_000);
+        GameService game = new GameService(matchDao, json, 20_000, 45_000);
+        ClientHandler player0 = client(json, clientRegistry);
+        ClientHandler player1 = client(json, clientRegistry);
+        Users user0 = new Users(1L, "player0", null, 2, 1000);
+        Users user1 = new Users(2L, "player1", null, 99, 1000);
+
+        try {
+            game.timTran(user0, player0);
+            Map<String, Object> matched = game.timTran(user1, player1);
+            Object room = roomFor(game, (String) matched.get("code"));
+            setState(room, GameState.initial(0));
+            setTimeoutCount(room, 0, 1);
+
+            processTimeout(game, room, 0);
+
+            ArgumentCaptor<MatchDao.Completion> completion =
+                    ArgumentCaptor.forClass(MatchDao.Completion.class);
+            verify(matchDao).ghiNuoc(eq(42L), eq(1), eq(0), eq("TIMEOUT"),
+                    isNull(), isNull(), eq(0), anyInt(), anyString(), completion.capture());
+            assertEquals("TIMEOUT", completion.getValue().reason());
+            assertEquals("P2_WIN", completion.getValue().result());
+            assertEquals(-1, completion.getValue().pointsDelta0());
+            assertEquals(4, completion.getValue().pointsDelta1());
+        } finally {
+            game.close();
+            clientRegistry.close();
+        }
+    }
+
+    @Test
     void rankedAndPrivateRoomResultsUseRankPointsButBotDoesNotPersist() throws Exception {
         ObjectMapper json = new ObjectMapper();
         MatchDao matchDao = mock(MatchDao.class);
@@ -301,6 +336,12 @@ class GameServicePassTest {
         Field field = room.getClass().getDeclaredField("consecutivePasses");
         field.setAccessible(true);
         field.setInt(room, count);
+    }
+
+    private void setTimeoutCount(Object room, int slot, int count) throws Exception {
+        Field field = room.getClass().getDeclaredField("timeoutCounts");
+        field.setAccessible(true);
+        ((int[]) field.get(room))[slot] = count;
     }
 
     private int getConsecutivePasses(Object room) throws Exception {

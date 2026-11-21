@@ -729,7 +729,7 @@ final class GameService implements AutoCloseable {
         Move autoMove = null;
         MoveResult moveResult = null;
         List<Move> legalMoves = Rules.legalMoves(nextState);
-        if (legalMoves.isEmpty()) {
+        if (timeoutCount >= 2 || legalMoves.isEmpty()) {
             nextState.forfeit(slot);
             lost = true;
             completion = ketQua(room, nextState, "TIMEOUT", nextUsed);

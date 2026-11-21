@@ -8,9 +8,9 @@ export default function MatchResult({ board, playerSlot, onExit, onReplay, remat
   const left = local ? 0 : playerSlot;
   const right = 1 - left;
   const draw = board.result === "DRAW" || (local && board.winner === -1);
-  const won = local || board.result === (left === 0 ? "P1_WIN" : "P2_WIN");
+  const won = local || board.result === (left === 0 ? "P0_WIN" : "P1_WIN");
   const outcome = draw ? "draw" : won ? "win" : "lose";
-  const winner = draw ? null : local ? board.winner : board.result === "P1_WIN" ? 0 : board.result === "P2_WIN" ? 1 : null;
+  const winner = draw ? null : local ? board.winner : board.result === "P0_WIN" ? 0 : board.result === "P1_WIN" ? 1 : null;
   const unavailable = online && (rematchStatus === "unavailable" || board.rematchUnavailable);
   const waiting = online && rematchStatus === "waiting";
   const leftName = local ? board.playerNames?.[left] || "Người chơi 1" : "Bạn";
@@ -19,7 +19,7 @@ export default function MatchResult({ board, playerSlot, onExit, onReplay, remat
   const notice = unavailable ? "Đối thủ đã rời phòng, không thể tái đấu."
     : waiting ? "Đang chờ đối thủ đồng ý tái đấu."
     : online && board.endReason === "PASS_LIMIT" ? "Ván đấu kết thúc do bỏ lượt hai lần."
-    : online && board.endReason === "TIMEOUT" ? "Hết giờ và không còn nước đi hợp lệ." : "";
+    : online && board.endReason === "TIMEOUT" ? "Hết giờ hai lần hoặc không còn nước đi hợp lệ." : "";
 
   if (local) return <div className="match-dialog-backdrop result-backdrop local-result-backdrop">
     <section className="match-result result-local" role="dialog" aria-modal="true" aria-labelledby="local-result-title" aria-describedby="local-result-outcome">
