@@ -41,6 +41,7 @@ final class GameService implements AutoCloseable {
     private static final int RANKED_TIME_CONTROL_MS = 20_000;
     private static final int ANIMATION_STEP_DELAY_MS = 250;
     private static final int ANIMATION_END_DELAY_MS = 120;
+    private static final int TURN_NOTICE_DELAY_MS = 2800;
 
     private final MatchDao matchDao;
     private final ObjectMapper json;
@@ -412,6 +413,7 @@ final class GameService implements AutoCloseable {
             room.usedMs[0] = room.usedMs[1] = 0;
             room.remainingMs[0] = room.remainingMs[1] = room.timeControlMs;
             room.rematchVotes[0] = room.rematchVotes[1] = false;
+            room.turnClockPaused = false;
             batDauDongHo(room);
             phatTrangThai(room, "match_started");
             return Map.of("status", "STARTED", "code", room.code, "matchId", room.matchId);
@@ -647,20 +649,40 @@ final class GameService implements AutoCloseable {
     private void batDauDongHo(Room room, int previousMoveEventCount) {
         dungDongHo(room);
         if (room.state == null || room.state.isOver() || room.paused) return;
-        room.turnStartedNanos = System.nanoTime();
         int slot = room.state.turn();
         if (room.mode == Mode.BOT) {
             if (slot == 1) {
                 long animationDurationMs = previousMoveEventCount == 0 ? 0
                         : (long) previousMoveEventCount * ANIMATION_STEP_DELAY_MS + ANIMATION_END_DELAY_MS;
-                long turnNoticeDurationMs = 2800;
                 room.clockTask = scheduler.schedule(() -> nuocBot(room),
-                        animationDurationMs + turnNoticeDurationMs, TimeUnit.MILLISECONDS);
+                        animationDurationMs + TURN_NOTICE_DELAY_MS, TimeUnit.MILLISECONDS);
             }
             return;
         }
+        room.turnClockPaused = previousMoveEventCount > 0;
+        if (room.turnClockPaused) {
+            long animationDurationMs = (long) previousMoveEventCount * ANIMATION_STEP_DELAY_MS
+                    + ANIMATION_END_DELAY_MS;
+            room.clockTask = scheduler.schedule(
+                    () -> batDauDongHoSauHieuUng(room),
+                    animationDurationMs + TURN_NOTICE_DELAY_MS,
+                    TimeUnit.MILLISECONDS);
+            return;
+        }
+        room.turnStartedNanos = System.nanoTime();
         long remaining = room.remainingMs[slot];
         room.clockTask = scheduler.schedule(() -> hetGio(room), remaining, TimeUnit.MILLISECONDS);
+    }
+
+    private void batDauDongHoSauHieuUng(Room room) {
+        synchronized (room) {
+            if (room.state == null || room.state.isOver() || room.paused) return;
+            room.turnClockPaused = false;
+            room.turnStartedNanos = System.nanoTime();
+            int slot = room.state.turn();
+            long remaining = room.remainingMs[slot];
+            room.clockTask = scheduler.schedule(() -> hetGio(room), remaining, TimeUnit.MILLISECONDS);
+        }
     }
 
     private void dungDongHo(Room room) {
@@ -686,7 +708,7 @@ final class GameService implements AutoCloseable {
     }
 
     private boolean kiemTraHetGio(Room room) {
-        if (room.mode == Mode.BOT || room.paused) return false;
+        if (room.mode == Mode.BOT || room.paused || room.turnClockPaused) return false;
         int slot = room.state.turn();
         if (room.remainingMs[slot] - thoiGianDaDung(room, slot, System.nanoTime()) > 0) return false;
         xuLyHetGio(room, slot);
@@ -762,7 +784,7 @@ final class GameService implements AutoCloseable {
     }
 
     private int thoiGianDaDung(Room room, int slot, long now) {
-        if (room.mode == Mode.BOT) return 0;
+        if (room.mode == Mode.BOT || room.turnClockPaused) return 0;
         long elapsed = TimeUnit.NANOSECONDS.toMillis(Math.max(0, now - room.turnStartedNanos));
         return (int) Math.min(room.remainingMs[slot], elapsed);
     }
@@ -885,6 +907,7 @@ final class GameService implements AutoCloseable {
 
     private void kiemTraChuaTamDung(Room room) {
         if (room.paused) throw new IllegalStateException("Trận đấu đang tạm dừng để chờ kết nối lại");
+        if (room.turnClockPaused) throw new IllegalStateException("Chưa kết thúc hiệu ứng rải quân");
     }
 
     private void phatTrangThai(Room room, String event) {
@@ -894,7 +917,7 @@ final class GameService implements AutoCloseable {
     private void phatTrangThai(Room room, String event, List<MoveEvent> moveEvents) {
         if (room.state == null) return;
         int[] remaining = room.remainingMs.clone();
-        if (!room.paused && !room.state.isOver()) {
+        if (!room.paused && !room.turnClockPaused && !room.state.isOver()) {
             int slot = room.state.turn();
             remaining[slot] = Math.max(0, remaining[slot]
                     - thoiGianDaDung(room, slot, System.nanoTime()));
@@ -1020,6 +1043,7 @@ final class GameService implements AutoCloseable {
         private int consecutivePasses;
         private long turnStartedNanos;
         private boolean paused;
+        private boolean turnClockPaused;
         private MatchDao.Completion completion;
         private long completedAtMillis;
         private ScheduledFuture<?> clockTask;

@@ -32,6 +32,44 @@ import static org.mockito.Mockito.when;
 class GameServicePassTest {
 
     @Test
+    void moveAnimationPausesTheNextPlayersClock() throws Exception {
+        ObjectMapper json = new ObjectMapper();
+        MatchDao matchDao = mock(MatchDao.class);
+        TcpGameServer clientRegistry = new TcpGameServer(json, 20_000, 45_000);
+        GameService game = new GameService(matchDao, json, 20_000, 45_000);
+        ClientHandler player0 = client(json, clientRegistry);
+        ClientHandler player1 = client(json, clientRegistry);
+        Users user0 = new Users(1L, "player0", null, 0, 1000);
+        Users user1 = new Users(2L, "player1", null, 0, 1000);
+
+        try {
+            game.timTran(user0, player0);
+            Map<String, Object> matched = game.timTran(user1, player1);
+            String code = (String) matched.get("code");
+            Object room = roomFor(game, code);
+            setState(room, GameState.initial(1));
+
+            Method startClock = GameService.class.getDeclaredMethod(
+                    "batDauDongHo", room.getClass(), int.class);
+            startClock.setAccessible(true);
+            startClock.invoke(game, room, 8);
+
+            Field pausedField = room.getClass().getDeclaredField("turnClockPaused");
+            pausedField.setAccessible(true);
+            assertTrue(pausedField.getBoolean(room));
+
+            Method elapsed = GameService.class.getDeclaredMethod(
+                    "thoiGianDaDung", room.getClass(), int.class, long.class);
+            elapsed.setAccessible(true);
+            assertEquals(0, ((Integer) elapsed.invoke(game, room, 1,
+                    System.nanoTime())).intValue());
+        } finally {
+            game.close();
+            clientRegistry.close();
+        }
+    }
+
+    @Test
     void timeoutAutoMoveDoesNotCountAsAPlayerPass() throws Exception {
         ObjectMapper json = new ObjectMapper();
         MatchDao matchDao = mock(MatchDao.class);
@@ -252,6 +290,9 @@ class GameServicePassTest {
         Field stateField = room.getClass().getDeclaredField("state");
         stateField.setAccessible(true);
         stateField.set(room, state);
+        Field turnClockPausedField = room.getClass().getDeclaredField("turnClockPaused");
+        turnClockPausedField.setAccessible(true);
+        turnClockPausedField.setBoolean(room, false);
     }
 
     private void processTimeout(GameService game, Object room, int slot) throws Exception {

@@ -290,7 +290,13 @@ export default function GameScreen({
   }, [board.mode, board.turn, board.gameOver, board.matchId]);
 
   useEffect(() => {
-    if (board.mode === "BOT" || board.gameOver || gamePaused) return undefined;
+    if (
+      board.mode === "BOT" ||
+      board.gameOver ||
+      gamePaused ||
+      isAnimating ||
+      isTurnNoticeVisible
+    ) return undefined;
     const timer = window.setInterval(
       () =>
         setLocalSeconds((seconds) => {
@@ -313,6 +319,8 @@ export default function GameScreen({
     board.gameOver,
     board.matchId,
     gamePaused,
+    isAnimating,
+    isTurnNoticeVisible,
     onAction,
   ]);
 
